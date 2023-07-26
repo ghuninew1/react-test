@@ -1,0 +1,36 @@
+.home { 
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    list-style: none;
+    padding: 5px;
+  }
+  .ta{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  .taa{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    font-size: 12px;
+  }
+  .tap {
+    text-align: center;
+    align-self: center;
+    justify-items: center;
+  }
+  .svg {
+    flex-direction: column;
+    width: 100%;
+  }
+  .data{
+    display: grid;
+    grid-template-columns: repeat(10,auto);
+  }
