@@ -13,7 +13,7 @@ export default function Binance() {
       return () => clearInterval(id);
     }, []);
 
-    async function fetchData() {
+    const fetchData = async ()  => (
       await fetch('https://api.binance.com/api/v3/ticker/price?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D')
       .then((res) => res.json())
       .then((res) => {
@@ -23,12 +23,10 @@ export default function Binance() {
       .catch((err) => {
         console.log(err)
         setText("An error fetchData!")
-      });
-    }
-    function onClickLi(){
-      isActive ? setIsActive(false) : setIsActive(true);
-    }
-console.log(JSON.stringify(text))
+      })
+    );
+    const onClickLi = () => (isActive ? setIsActive(false) : setIsActive(true));
+    
   return (
     <div className="home">
       <div className="ta">

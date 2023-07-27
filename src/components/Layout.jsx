@@ -3,7 +3,7 @@ import { ThemeContext } from "./ThemeContext";
 import "./Layout.css";
 
 // eslint-disable-next-line react/prop-types
-function Layout({txtMain, txtInfo, txtImg, txtNum, toFix=2}) {
+const Layout =({txtMain, txtInfo, txtImg, txtNum, toFix=2}) => {
 
   const theme = useContext(ThemeContext);
   const className = "card-" + theme;

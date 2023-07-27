@@ -2,7 +2,7 @@
 import {  useContext, useState } from "react";
 import { ThemeContext } from "./ThemeContext";
 
-export default function Themes({ children,title }) {
+function Themes({ children,title }) {
   const [theme, setTheme] = useState("light");
   const ClickOn = () => {
     const bodys = document.querySelector('body');
@@ -19,7 +19,7 @@ export default function Themes({ children,title }) {
   );
 }
 
-function Panel({ title, children }) {
+const Panel = ({ title, children }) => {
   const theme = useContext(ThemeContext);
   const className = "panel-" + theme;
   return (
@@ -30,7 +30,7 @@ function Panel({ title, children }) {
   );
 }
 
-function Button({ children, onClick }) {
+const Button = ({ children, onClick }) => {
   const theme = useContext(ThemeContext);
   const className = "button-" + theme;
   return (
@@ -39,3 +39,4 @@ function Button({ children, onClick }) {
     </button>
   );
 }
+export default Themes

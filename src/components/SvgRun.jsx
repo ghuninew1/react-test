@@ -2,7 +2,7 @@
 import {useState} from 'react'
 import './SvgRun.css';
 
-export default function SvgRun({sVal=50,sMax=100,sText="", sInput=false}) {
+function SvgRun({sVal=50,sMax=100,sText="", sInput=false}) {
     const [vals,setVals] = useState(sVal)
     const updateVal =(e)=>{
         setVals(e.target.value)
@@ -15,7 +15,7 @@ export default function SvgRun({sVal=50,sMax=100,sText="", sInput=false}) {
   </div>
   )
 }
-function DonutChart({value=Number, vText=String, vMax=Number}) {
+const DonutChart = ({value=Number, vText=String, vMax=Number}) => {
     const vaL = {values:value, valuelabel:vText, size:100, strokewidth:15};
 
     const halfsize = (vaL.size * 0.5);
@@ -41,3 +41,4 @@ function DonutChart({value=Number, vText=String, vMax=Number}) {
       </>
   );
 }
+export default SvgRun
