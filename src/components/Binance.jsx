@@ -4,29 +4,30 @@ import SvgRun from './SvgRun';
 import './Binance.css';
 
 export default function Binance() {
-    const [text, setText] = useState();
-    const [isActive, setIsActive] = useState(false);
-    const [time, setTime] = useState(() => new Date());
-    useEffect(() => {
-      fetchData()
-      const id = setInterval(() => fetchData() , 1000);
-      return () => clearInterval(id);
-    }, []);
+  const [text, setText] = useState();
+  const [isActive, setIsActive] = useState(false);
+  const [time, setTime] = useState(() => new Date());
+  useEffect(() => {
+    fetchData()
+    const id = setInterval(() => fetchData() , 5000);
+    return () => clearInterval(id);
+  }, []);
 
-    const fetchData = async ()  => (
-      await fetch('https://api.binance.com/api/v3/ticker/price?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D')
-      .then((res) => res.json())
-      .then((res) => {
-        setText(res)
-        setTime(new Date())
-      })
-      .catch((err) => {
-        console.log(err)
-        setText("An error fetchData!")
-      })
-    );
-    const onClickLi = () => (isActive ? setIsActive(false) : setIsActive(true));
-    
+  async function fetchData() {
+    await fetch('https://api.binance.com/api/v3/ticker/price?symbols=%5B%22BTCUSDT%22%2C%22ETHUSDT%22%5D')
+    .then((res) => res.json())
+    .then((res) => {
+      setText(res)
+      setTime(new Date())
+    })
+    .catch((err) => {
+      console.log(err)
+      setText("An error fetchData!")
+    });
+  }
+
+    const onClickLi = () => (isActive ? setIsActive(false)  : setIsActive(true));
+
   return (
     <div className="home">
       <div className="ta">
@@ -41,11 +42,11 @@ export default function Binance() {
            </li>
         </ul>)}
         </div >
-        <div onClick={onClickLi} >
+        <button onClick={onClickLi} >
         <p className="tap">
         {isActive ? time.toLocaleTimeString('th-TH') : time.toLocaleTimeString('en-EN')}
         </p> 
-        </div>
+        </button>
       </div>
     </div>
   );

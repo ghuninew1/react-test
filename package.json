@@ -8,23 +8,23 @@
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "test": "vitest --open",
+    "test:ui": "vitest --ui --open",
     "op": "vite optimize -d --force"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.0-next-9c54b29b4-20230322",
+    "react-dom": "^18.3.0-next-9c54b29b4-20230322"
   },
   "devDependencies": {
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^4.0.3",
-    "eslint": "^8.45.0",
-    "eslint-plugin-react": "^7.33.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "@vitejs/plugin-react-swc": "^3.3.2",
+    "eslint": "^8.46.0",
+    "eslint-plugin-react": "^7.33.1",
+    "eslint-plugin-react-hooks": "^5.0.0-next-9c54b29b4-20230322",
     "eslint-plugin-react-refresh": "^0.4.3",
     "vite": "^4.4.7"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC"
 }
