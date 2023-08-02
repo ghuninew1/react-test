@@ -15,8 +15,8 @@ const Layout =({txtMain, txtInfo, txtImg, txtNum, toFix=2}) => {
       </span>
       <span className="card-info">
         {txtImg && <img src={txtImg} alt="" className="txtimg"/>}
-        {txtInfo && <span className="card-info-msg">{txtInfo}</span>}
       </span>
+      {txtInfo && <span className="card-info-msg">{txtInfo}</span>}
     </div>
   );
 }

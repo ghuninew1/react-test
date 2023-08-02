@@ -4,12 +4,10 @@
   "version": "0.0.2",
   "type": "module",
   "scripts": {
-    "dev": "vite --host --strictPort --open ",
+    "dev": "vite --host --open -d ",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest --open",
-    "test:ui": "vitest --ui --open",
     "op": "vite optimize -d --force"
   },
   "dependencies": {
