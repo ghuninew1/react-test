@@ -6,22 +6,25 @@ settings:
 
 dependencies:
   react:
-    specifier: ^18.3.0-next-9c54b29b4-20230322
-    version: 18.3.0-next-9c54b29b4-20230322
+    specifier: ^18.3.0-canary-018c58c9c-20230601
+    version: 18.3.0-canary-018c58c9c-20230601
   react-dom:
-    specifier: ^18.3.0-next-9c54b29b4-20230322
-    version: 18.3.0-next-9c54b29b4-20230322(react@18.3.0-next-9c54b29b4-20230322)
+    specifier: ^18.3.0-canary-018c58c9c-20230601
+    version: 18.3.0-canary-018c58c9c-20230601(react@18.3.0-canary-018c58c9c-20230601)
+  react-router-dom:
+    specifier: 6.14.2
+    version: 6.14.2(react-dom@18.3.0-canary-018c58c9c-20230601)(react@18.3.0-canary-018c58c9c-20230601)
 
 devDependencies:
   '@types/react':
-    specifier: ^18.2.17
-    version: 18.2.17
+    specifier: ^18.2.18
+    version: 18.2.18
   '@types/react-dom':
     specifier: ^18.2.7
     version: 18.2.7
   '@vitejs/plugin-react-swc':
     specifier: ^3.3.2
-    version: 3.3.2(vite@4.4.7)
+    version: 3.3.2(vite@4.4.8)
   eslint:
     specifier: ^8.46.0
     version: 8.46.0
@@ -29,14 +32,14 @@ devDependencies:
     specifier: ^7.33.1
     version: 7.33.1(eslint@8.46.0)
   eslint-plugin-react-hooks:
-    specifier: 5.0.0-next-9c54b29b4-20230322
-    version: 5.0.0-next-9c54b29b4-20230322(eslint@8.46.0)
+    specifier: ^5.0.0-canary-018c58c9c-20230601
+    version: 5.0.0-canary-018c58c9c-20230601(eslint@8.46.0)
   eslint-plugin-react-refresh:
     specifier: ^0.4.3
     version: 0.4.3(eslint@8.46.0)
   vite:
-    specifier: ^4.4.7
-    version: 4.4.7
+    specifier: ^4.4.8
+    version: 4.4.8
 
 packages:
 
@@ -321,6 +324,11 @@ packages:
       fastq: 1.15.0
     dev: true
 
+  /@remix-run/router@1.7.2:
+    resolution: {integrity: sha512-7Lcn7IqGMV+vizMPoEl5F0XDshcdDYtMI6uJLQdQz5CfZAwy3vvGKYSUk789qndt5dEC4HfSjviSYlSoHGL2+A==}
+    engines: {node: '>=14'}
+    dev: false
+
   /@swc/core-darwin-arm64@1.3.72:
     resolution: {integrity: sha512-oNSI5hVfZ+1xpj+dH1g4kQqA0VsGtqd8S9S+cDqkHZiOOVOevw9KN6dzVtmLOcPtlULVypVc0TVvsB55KdVZhQ==}
     engines: {node: '>=10'}
@@ -440,11 +448,11 @@ packages:
   /@types/react-dom@18.2.7:
     resolution: {integrity: sha512-GRaAEriuT4zp9N4p1i8BDBYmEyfo+xQ3yHjJU4eiK5NDa1RmUZG+unZABUTK4/Ox/M+GaHwb6Ow8rUITrtjszA==}
     dependencies:
-      '@types/react': 18.2.17
+      '@types/react': 18.2.18
     dev: true
 
-  /@types/react@18.2.17:
-    resolution: {integrity: sha512-u+e7OlgPPh+aryjOm5UJMX32OvB2E3QASOAqVMY6Ahs90djagxwv2ya0IctglNbNTexC12qCSMZG47KPfy1hAA==}
+  /@types/react@18.2.18:
+    resolution: {integrity: sha512-da4NTSeBv/P34xoZPhtcLkmZuJ+oYaCxHmyHzwaDQo9RQPBeXV+06gEk2FpqEcsX9XrnNLvRpVh6bdavDSjtiQ==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -455,13 +463,13 @@ packages:
     resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
     dev: true
 
-  /@vitejs/plugin-react-swc@3.3.2(vite@4.4.7):
+  /@vitejs/plugin-react-swc@3.3.2(vite@4.4.8):
     resolution: {integrity: sha512-VJFWY5sfoZerQRvJrh518h3AcQt6f/yTuWn4/TRB+dqmYU0NX1qz7qM5Wfd+gOQqUzQW4gxKqKN3KpE/P3+zrA==}
     peerDependencies:
       vite: ^4
     dependencies:
       '@swc/core': 1.3.72
-      vite: 4.4.7
+      vite: 4.4.8
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: true
@@ -771,8 +779,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /eslint-plugin-react-hooks@5.0.0-next-9c54b29b4-20230322(eslint@8.46.0):
-    resolution: {integrity: sha512-UPl/tnr1RjKR6XgWjDb79yEnWdF6S3bARTADMH+07JY6toNiEDhdKWmOJVXx+iAffvvyfu4+yRLcBxUjfgnarA==}
+  /eslint-plugin-react-hooks@5.0.0-canary-018c58c9c-20230601(eslint@8.46.0):
+    resolution: {integrity: sha512-4ay6UP+ELCuioNGIP5O0YwD92guDdLWc2F6F3SHr/HyfLP+MTTpVm0RqIrAijQYqk/+U6O737t/q64yVWtXPcQ==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
@@ -1463,22 +1471,45 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
-  /react-dom@18.3.0-next-9c54b29b4-20230322(react@18.3.0-next-9c54b29b4-20230322):
-    resolution: {integrity: sha512-bhO3xQJIALlzIt30Mwg2sGIQHVZHsxHtXCKUPr2nS5v72qKBRC1swj4uMfOHWBog3SL866gHPI3saW4gUQJg4w==}
+  /react-dom@18.3.0-canary-018c58c9c-20230601(react@18.3.0-canary-018c58c9c-20230601):
+    resolution: {integrity: sha512-sH30AbmUib67GQg8ukbooPhIGmGlBxz0P0p6MgkK7RcGDsDJUQQMhV5+cU45jhLAjdq9slxDV6qjGC5c0GgcfQ==}
     peerDependencies:
-      react: 18.3.0-next-9c54b29b4-20230322
+      react: 18.3.0-canary-018c58c9c-20230601
     dependencies:
       loose-envify: 1.4.0
-      react: 18.3.0-next-9c54b29b4-20230322
-      scheduler: 0.24.0-next-9c54b29b4-20230322
+      react: 18.3.0-canary-018c58c9c-20230601
+      scheduler: 0.24.0-canary-018c58c9c-20230601
     dev: false
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
 
-  /react@18.3.0-next-9c54b29b4-20230322:
-    resolution: {integrity: sha512-hlk01AVdfzZ/r9fLo8TMKwZNwKCScINkUVfoddyKOc2jAKXfOdk1nqTYBNPkvrkA5zLcUJA+DPKe//VHQk/3Sg==}
+  /react-router-dom@6.14.2(react-dom@18.3.0-canary-018c58c9c-20230601)(react@18.3.0-canary-018c58c9c-20230601):
+    resolution: {integrity: sha512-5pWX0jdKR48XFZBuJqHosX3AAHjRAzygouMTyimnBPOLdY3WjzUSKhus2FVMihUFWzeLebDgr4r8UeQFAct7Bg==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.7.2
+      react: 18.3.0-canary-018c58c9c-20230601
+      react-dom: 18.3.0-canary-018c58c9c-20230601(react@18.3.0-canary-018c58c9c-20230601)
+      react-router: 6.14.2(react@18.3.0-canary-018c58c9c-20230601)
+    dev: false
+
+  /react-router@6.14.2(react@18.3.0-canary-018c58c9c-20230601):
+    resolution: {integrity: sha512-09Zss2dE2z+T1D03IheqAFtK4UzQyX8nFPWx6jkwdYzGLXd5ie06A6ezS2fO6zJfEb/SpG6UocN2O1hfD+2urQ==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.7.2
+      react: 18.3.0-canary-018c58c9c-20230601
+    dev: false
+
+  /react@18.3.0-canary-018c58c9c-20230601:
+    resolution: {integrity: sha512-rupXbGQ8mmjuSS79sHHyEbuceV1toejYjqRT13mWcMzgdmhAPCLsubQD+OS6o35K9V2lmrH42hs4dEqm4wNv2Q==}
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
@@ -1551,8 +1582,8 @@ packages:
       is-regex: 1.1.4
     dev: true
 
-  /scheduler@0.24.0-next-9c54b29b4-20230322:
-    resolution: {integrity: sha512-p3Gd/VuKbRjoySaTkSvQ4FQ/KvlDb+H7uS3mFRSPz5JwBV0MLgD1UBsxcmIzDDzkZjAI9CGUUv9qqIslLRcJ3A==}
+  /scheduler@0.24.0-canary-018c58c9c-20230601:
+    resolution: {integrity: sha512-BVKzzeDd2BgWCTeiLIxPtfJTux6Nz0iGu4upoYCpiD1v1xt9MV6NYCgZd7m+jJZcuHNSdJaoZJuzcx7iplOLvg==}
     dependencies:
       loose-envify: 1.4.0
     dev: false
@@ -1718,8 +1749,8 @@ packages:
       punycode: 2.3.0
     dev: true
 
-  /vite@4.4.7:
-    resolution: {integrity: sha512-6pYf9QJ1mHylfVh39HpuSfMPojPSKVxZvnclX1K1FyZ1PXDOcLBibdq5t1qxJSnL63ca8Wf4zts6mD8u8oc9Fw==}
+  /vite@4.4.8:
+    resolution: {integrity: sha512-LONawOUUjxQridNWGQlNizfKH89qPigK36XhMI7COMGztz8KNY0JHim7/xDd71CZwGT4HtSRgI7Hy+RlhG0Gvg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:

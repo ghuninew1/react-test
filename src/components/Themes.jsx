@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import {  useContext, useState } from "react";
-import { ThemeContext } from "./ThemeContext";
+import {  useContext, useState } from "react"
+import { ThemeContext } from "./ThemeContext"
 
 function Themes({ children,title }) {
   const [theme, setTheme] = useState("light");
   const ClickOn = () => {
-    const bodys = document.querySelector('body');
-    setTheme(theme === "dark" ? "light" : "dark");
-    theme === "dark" ? bodys.style.backgroundColor = "#fff" : bodys.style.backgroundColor = "#000";
+    const bodys = document.querySelector('body')
+    setTheme(theme === "dark" ? "light" : "dark")
+    theme === "dark" ? bodys.style.backgroundColor = "#fff" : bodys.style.backgroundColor = "#000"
   }
   return (
     <>
@@ -19,9 +19,9 @@ function Themes({ children,title }) {
   );
 }
 
-const Panel = ({ title, children }) => {
-  const theme = useContext(ThemeContext);
-  const className = "panel-" + theme;
+const Panel = ({ title, children,thm }) => {
+  const theme = useContext(ThemeContext)
+  const className = thm ? (thm + " " + theme) : (theme)
   return (
     <section className={className}>
       {title && <h1>{title}</h1>}
@@ -31,8 +31,8 @@ const Panel = ({ title, children }) => {
 }
 
 const Button = ({ children, onClick }) => {
-  const theme = useContext(ThemeContext);
-  const className = "button-" + theme;
+  const theme = useContext(ThemeContext)
+  const className = "button-" + theme + " " + theme
   return (
     <button className={className} onClick={onClick}>
       {children}

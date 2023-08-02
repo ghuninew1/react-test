@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 // import Layout from "./Layout";
-import SvgRun from './SvgRun';
 import './Binance.css';
 
 export default function Binance() {
   const [text, setText] = useState();
-  const [isActive, setIsActive] = useState(false);
+  const [count, setCount] = useState(0);
   const [time, setTime] = useState(() => new Date());
+  const [isActive, setIsActive] = useState(true);
+
   useEffect(() => {
     fetchData()
     const id = setInterval(() => fetchData() , 5000);
-    return () => clearInterval(id);
+    const id2 = setInterval(() => setTime(new Date()) , 1000);
+    return () => clearInterval(id,id2);
   }, []);
 
   async function fetchData() {
@@ -18,36 +20,33 @@ export default function Binance() {
     .then((res) => res.json())
     .then((res) => {
       setText(res)
-      setTime(new Date())
     })
     .catch((err) => {
       console.log(err)
       setText("An error fetchData!")
     });
   }
-
-    const onClickLi = () => (isActive ? setIsActive(false)  : setIsActive(true));
+  const onClickLi = () => {count ===0 ? setCount(1) : setCount(0)}
 
   return (
     <div className="home">
+
       <div className="ta">
+      <p>{time.toLocaleTimeString('th-TH')}</p>
         <div className="taa">
-        {text && text.map((d,idx)=> 
-        <ul key={idx} >
-           {d.symbol[0]}: {Number(d.price).toFixed(2)}
-           <li className="svg">
-           {idx === 0 ? <SvgRun sVal={d.price} sText={d.symbol} sMax={35000} /> 
-           : <SvgRun sVal={d.price} sText={d.symbol} sMax={3000} 
-           />}
-           </li>
-        </ul>)}
+          {isActive && <> {text && text.map((d,idx)=> 
+            <ul key={idx} >
+              {idx === count && <>
+              <p onClick={onClickLi}>
+              {Number(d.price).toFixed(2)} : {d.symbol}
+              </p>
+              </>}
+            </ul>)}</> }
+            
         </div >
-        <button onClick={onClickLi} >
-        <p className="tap">
-        {isActive ? time.toLocaleTimeString('th-TH') : time.toLocaleTimeString('en-EN')}
-        </p> 
-        </button>
+        
       </div>
+      <button onClick={()=>isActive ? setIsActive(false) : setIsActive(true)}>{isActive? "S":"H"}</button>
     </div>
   );
 }
