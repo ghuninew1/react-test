@@ -28,14 +28,28 @@
   margin: 0;
   padding: 0;
 }
+.light a{
+  color: #000000;
+}
+.dark a{
+  color: #fff;
+}
+.light button{
+  color: #fff;
+  background-color: #000;
+}
+.dark button{
+  color: #000;
+  background-color: #fff;
+}
 .button-light,
 .button-dark {
   display: inline-block;
   position: absolute;
   padding: 5px;
   margin: 10px;
-  right: 1%;
-  bottom: 1%;
+  right: 0px;
+  bottom: 0px;
   cursor: pointer;
   border-radius: 100%;
   z-index: 5;

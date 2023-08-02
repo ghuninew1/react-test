@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Laout from "./Laout";
+import Layout from "./Layout";
 
 export default function AppScript() {
     const [text, setText] = useState([]);
@@ -22,8 +22,8 @@ export default function AppScript() {
       });
     }
   return (
-    <div className="home">
-    <div className="appscript">{text.map(d=> d.a > 0 && <li key={d.a}><Laout txtMain={d.b} txtImg={d.d} txtInfo={d.f}/></li>)}</div>
+    <div className="">
+    <div className="appscript">{text.map(d=> d.a > 0 && <li key={d.a}><Layout txtMain={d.b} txtImg={d.d} txtInfo={d.f}/></li>)}</div>
     </div>
   );
 }

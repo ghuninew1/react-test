@@ -1,36 +1,35 @@
 .home { 
     display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: flex-end;
-    margin: 0;
-    padding: 0;
+    flex-direction: row-reverse;
   }
   li {
     list-style: none;
-    padding: 5px;
   }
   .ta{
     display: flex;
-    flex-direction: column;
-    margin: 0;
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    padding: 0;
+    margin: 5px;
+    font-size: 12px;
+    top: 20px;
+    right: 0;
   }
-  .taa{
+  .time{
     display: flex;
-    flex-direction: row;
-    padding: 10px;
+    justify-content: end;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 2px;
+    padding: 2px;
     font-size: 12px;
   }
-  .tap {
-    text-align: center;
-    align-self: center;
-    justify-items: center;
-  }
-  .svg {
-    flex-direction: column;
-    width: 100%;
-  }
-  .data{
-    display: grid;
-    grid-template-columns: repeat(10,auto);
+  .btn{
+    margin: 5px;
+    padding: 2px;
+    list-style: none;
+    cursor: pointer;
+    font-size: 10px;
   }

@@ -8,6 +8,8 @@ const Themes = lazy(() => import('./components/Themes'))
 const Spinner = lazy(() => import('./components/Spinner'))
 const Binance = lazy(() => import('./components/Binance'))
 const NavBar = lazy(() => import('./components/NavBar'))
+const AppScript = lazy(() => import('./components/AppScript'))
+
 
 const router = createBrowserRouter([
   {
@@ -16,19 +18,19 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-         element: "",
+         element: "Home",
       },
       {
         path: "/studio",
         element: "studio",
       },
       {
-        path: "/jobs",
-        element: "jobs",
+        path: "/app",
+        element: <AppScript />,
       },
       {
         path: "*",
-        element: "error",
+        element: "Error",
       },
     ],
   },
@@ -41,12 +43,12 @@ function Root() {
   return (
     <Themes title={""}>
       <NavBar />
+      <div className="App">
+        <Binance />
       <Suspense fallback={<Spinner />}>
-        <div className="App">
-          <Binance />
-          <Outlet />
-        </div>
+        <Outlet />
       </Suspense>
+      </div>
     </Themes>
   );
 }

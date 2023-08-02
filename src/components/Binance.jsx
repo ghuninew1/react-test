@@ -29,24 +29,21 @@ export default function Binance() {
   const onClickLi = () => {count ===0 ? setCount(1) : setCount(0)}
 
   return (
-    <div className="home">
-
-      <div className="ta">
-      <p>{time.toLocaleTimeString('th-TH')}</p>
-        <div className="taa">
-          {isActive && <> {text && text.map((d,idx)=> 
-            <ul key={idx} >
-              {idx === count && <>
-              <p onClick={onClickLi}>
-              {Number(d.price).toFixed(2)} : {d.symbol}
-              </p>
-              </>}
-            </ul>)}</> }
-            
-        </div >
-        
-      </div>
-      <button onClick={()=>isActive ? setIsActive(false) : setIsActive(true)}>{isActive? "S":"H"}</button>
-    </div>
+<>
+<p className="time">{time.toLocaleTimeString('th-TH')}</p>
+<div className="home">
+  <div className="ta">
+      {isActive && <> {text && text.map((d,idx)=> 
+        <ul key={idx} >
+          {idx === count && <>
+            <p onClick={onClickLi}>
+            {Number(d.price).toFixed(2)} : {d.symbol}
+            </p>
+          </>}
+        </ul>)}</> }
+      <button className="btn" onClick={()=>isActive ? setIsActive(false) : setIsActive(true)}>{isActive? "S":"H"}</button>
+  </div>
+</div>
+</>
   );
 }
