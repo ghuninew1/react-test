@@ -1,13 +1,15 @@
-/* eslint-disable react/prop-types */
-import {  useContext, useState } from "react"
+import { useContext, useState } from "react"
 import { ThemeContext } from "./ThemeContext"
 
-function Themes({ children,title }) {
-  const [theme, setTheme] = useState("light");
+function Themes({ children, title }) {
+  const [theme, setTheme] = useState('dark');
+  const [bg, setBg] = useState('#000');
+  const bodys = document.querySelector('body');
+    bodys.style.backgroundColor = bg;
+
   const ClickOn = () => {
-    const bodys = document.querySelector('body')
     setTheme(theme === "dark" ? "light" : "dark")
-    theme === "dark" ? bodys.style.backgroundColor = "#fff" : bodys.style.backgroundColor = "#000"
+    theme === "dark" ? setBg("#fff") : setBg("#000")
   }
   return (
     <>

@@ -1,11 +1,9 @@
-import {  useContext } from "react";
-import { ThemeContext } from "./ThemeContext";
+import React, {useContext} from "react";
+import {ThemeContext} from "./ThemeContext";
 import "./Layout.css";
 
-// eslint-disable-next-line react/prop-types
 const Layout =({txtMain, txtInfo, txtImg, txtNum, toFix=2}) => {
-
-  const theme = useContext(ThemeContext);
+  const theme = useContext(ThemeContext)
   const className = "card-" + theme;
   return (
     <div className={className}>
@@ -20,5 +18,4 @@ const Layout =({txtMain, txtInfo, txtImg, txtNum, toFix=2}) => {
     </div>
   );
 }
-
 export default Layout;

@@ -5,7 +5,7 @@ const REACT_APP_GOOGLE_API_KEY = 'AIzaSyAxLvmYbYnjUsLtA-Hsqc3ww7QLdpD9Sss';
 const REACT_APP_GOOGLE_SHEETS_ID = '1pBMvHQc386pIcTNsuwui3Xi4c3EQJkmFudN_N1kvWMY';
 const sheetsOptions = [{ id: 'product'}];
 
-export default function Sheet() {
+ const Sheet = () => {
   const { data, loading, error, refetch } = useGoogleSheets({
     apiKey: REACT_APP_GOOGLE_API_KEY,
     sheetId: REACT_APP_GOOGLE_SHEETS_ID,
@@ -26,3 +26,4 @@ export default function Sheet() {
     </div>
   );
 }
+export default Sheet;

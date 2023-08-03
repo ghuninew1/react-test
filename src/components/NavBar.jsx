@@ -1,5 +1,4 @@
 import './NavBar.css'
-// import Logopng from '../img/Logopng.png'
 import { NavLink, useLocation} from 'react-router-dom'
 import { useState,useContext } from 'react';
 import { ThemeContext } from "./ThemeContext";
