@@ -30,7 +30,7 @@ export default function NavBar() {
             </label>
             <div className={className}>
               <li className={classN("")}><NavLink style={{textDecoration: 'none'}} end to="/">Home</NavLink></li>
-              <li className={classN("studio")}><NavLink style={{textDecoration: 'none'}} to="/studio" >Studio</NavLink></li>
+              <li className={classN("status")}><NavLink style={{textDecoration: 'none'}} to="/status" >Status</NavLink></li>
               <li className={classN("app")}><NavLink style={{textDecoration: 'none'}} to="/app">App</NavLink></li>
             </div>
           </ul>

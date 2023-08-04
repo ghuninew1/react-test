@@ -6,7 +6,16 @@ export default defineConfig({
     react(),
   ],
   server: {
-    port: 6441,
+    port: 3000,
     strictPort: true,
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'ws://localhost:3001',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    }
   },
 })

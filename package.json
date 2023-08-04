@@ -4,25 +4,31 @@
   "version": "0.0.2",
   "type": "module",
   "scripts": {
-    "dev": "vite --host --open",
+    "dev": "vite --host",
     "build": "vite build",
+    "server": "nodemon server/server.js",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "op": "vite optimize -d --force"
   },
   "dependencies": {
-    "react": "18.3.0-next-fecc288b7-20221025",
-    "react-dom": "18.3.0-next-fecc288b7-20221025",
+    "react": "18.3.0-canary-018c58c9c-20230601",
+    "react-dom": "18.3.0-canary-018c58c9c-20230601",
     "react-router-dom": "6.14.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/nodemon": "^1.19.2",
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react-swc": "^3.3.2",
+    "cors": "2.8.5",
     "eslint": "^8.46.0",
     "eslint-plugin-react": "^7.33.1",
-    "eslint-plugin-react-hooks": "5.0.0-next-fecc288b7-20221025",
+    "eslint-plugin-react-hooks": "5.0.0-canary-018c58c9c-20230601",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "nodemon": "3.0.1",
+    "socket.io-client": "4.7.2",
     "vite": "^4.4.8"
   },
   "license": "ISC"
