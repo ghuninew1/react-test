@@ -4,24 +4,25 @@ import io from 'socket.io-client'
 function Status() {
     const [data,setData] = useState()
     useEffect(() =>{
-        const socket = io('ws://localhost:3001')
-        socket.on('nodeStatus',({id,status,ip,label})=>{
+      const socket = io('ws://localhost:3001')
+        socket.on('nodeStatus',({id,status,ip,label,time})=>{
             setData((prevData)=>({
               ...prevData,
-                [id]:{status,ip,label}
+                [id]:{status,ip,label,time}
             }))
         })
-
     },[]);
+  
     console.log(data)
     if(data === undefined || data === null){
       return <p>Loading..</p>
     }
-    const tableRow = Object.values(data).map((node)=>(
-      <tr key={node.id}>
+    const tableRow = Object.values(data).map((node,idx)=>(
+      <tr key={idx}>
         <td>{node.ip}</td>
         <td>{node.label}</td>
         <td>{node.status}</td>
+        <td>{node.time}</td>
       </tr>
     ))
   return (

@@ -1,12 +1,12 @@
 import './NavBar.css'
 import { NavLink, useLocation} from 'react-router-dom'
-import { useState,useContext } from 'react';
-import { ThemeContext } from "./ThemeContext";
+import { useState,useContext } from 'react'
+import { ThemeContext } from "./ThemeContext"
 
 export default function NavBar() {
-  const location = useLocation();
-  const {pathname} = location;
-  const [boolean, setBoolean] = useState(true);
+  const location = useLocation()
+  const {pathname} = location
+  const [boolean, setBoolean] = useState(true)
 
   const splitLocation = pathname.split("/");
   const classN = (name) => splitLocation[1] === name ? "active" : ""
