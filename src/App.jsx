@@ -1,9 +1,10 @@
 import { Suspense, lazy } from "react"
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import "./App.css";
-import { Themes,Status,Spinner,NavBar,Binance } from "./pages";
+import { Themes,Status,Spinner,NavBar } from "./pages";
 
 export default function App() {
+  
   const router = createBrowserRouter([
     {
       path: "/",
@@ -28,7 +29,7 @@ function Root() {
     <Themes>
       <div className="App">
       <NavBar />
-      <Binance />
+      {/* <Binance /> */}
         <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>
