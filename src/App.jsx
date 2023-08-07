@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react"
+import { Suspense } from "react"
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import "./App.css";
 import { Themes,Status,Spinner,NavBar } from "./pages";
@@ -17,7 +17,11 @@ export default function App() {
         {
           path: "/status",
           element: <Status />,
-        }
+        },
+        {
+          path: "/bn",
+          element: 'Home',
+        },
       ],
     },
   ]);
@@ -28,8 +32,7 @@ function Root() {
   return (
     <Themes>
       <div className="App">
-      <NavBar />
-      {/* <Binance /> */}
+        <NavBar />
         <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>

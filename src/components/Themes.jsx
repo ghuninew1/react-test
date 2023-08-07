@@ -1,11 +1,20 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { ThemeContext } from "./ThemeContext"
+import PropType from 'prop-types'
 
+Themes.propTypes = {
+  children: PropType.node.isRequired,
+  title: PropType.string,
+}
 function Themes({ children, title }) {
   const [theme, setTheme] = useState('dark');
   const [bg, setBg] = useState('#000');
-  const bodys = document.querySelector('body');
+
+  useEffect(() => {
+    const bodys = document.querySelector('body');
     bodys.style.backgroundColor = bg;
+  }, [bg]);
+  
 
   const ClickOn = () => {
     setTheme(theme === "dark" ? "light" : "dark")
@@ -31,6 +40,7 @@ const Panel = ({ title, children,thm }) => {
     </section>
   );
 }
+
 
 const Button = ({ children, onClick }) => {
   const theme = useContext(ThemeContext)
