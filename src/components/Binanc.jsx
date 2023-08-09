@@ -1,23 +1,23 @@
-import { WebsocketAPI } from '@binance/connector'
-import { useState} from 'react'
+import {useEffect, useState} from 'react'
+import io from "socket.io-client";
 
-export function Binanc() {
+export default function Binances() {
   // const [text, setText] = useState([]);
-  const logger=[]
-  const callbacks = {
-  open: (client) => {
-    console.log('Connected with Websocket server')
-    client.tickerPrice({ symbols: ['BTCUSDT','ETHUSDT'] })
-  },
-  close: () => console.log('Disconnected with Websocket server'),
-  message: data =>  console.log(data)
+  const [data,setData] = useState([]);
+  const [time, setTime] = useState();
 
-}
+    useEffect(() =>{  
+      fetchData();
+    },[]);
+    
+    function fetchData() {
+      const socket = io({ transports: ["websocket"] }); 
 
-const websocketStreamClient = WebsocketAPI(null, null,{logger, callbacks })
-
-// close websocket stream
-setTimeout(() => websocketStreamClient.disconnect(), 50000)
+      socket.on('dataFetch',(message)=>{
+        setData(message);
+    }); 
+  }
+  console.log(data);
 return (
   <div>
     {/* <Binance text={text} /> */}

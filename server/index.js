@@ -5,20 +5,20 @@ import { createIOServer } from "./io.js";
 import { Server } from 'socket.io';
 
 const port = 3010;
+const app = express();
+const server = createServer(app);
 
-async function createMainServer() {
-  const app = express();
-  const server = createServer(app);
-
-  
-  const io = new Server(server,{
-    cors: {
-      origin: '*',
-    },
+const io = new Server(server,{
+  cors: {
+    origin: '*',
+  },
     transports: ['websocket'],
     pingInterval: 10000,
     pingTimeout: 5000,
-  });
+});
+
+async function createMainServer() {
+
   
   createIOServer(io);
 

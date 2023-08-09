@@ -3,7 +3,9 @@ import { NavLink, useLocation} from 'react-router-dom'
 import { useState,useContext } from 'react'
 import { ThemeContext } from "./ThemeContext"
 
-export default function NavBar() {
+
+const NavBar = () => {
+
   const location = useLocation()
   const {pathname} = location
   const [boolean, setBoolean] = useState(true)
@@ -38,3 +40,4 @@ export default function NavBar() {
     </>
   );
 }
+export default NavBar

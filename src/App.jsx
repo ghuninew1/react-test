@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import "./App.css";
 import { Themes,Status,Spinner,NavBar } from "./pages";
+import Binances from "./components/Binanc";
 
 export default function App() {
   
@@ -20,7 +21,7 @@ export default function App() {
         },
         {
           path: "/bn",
-          element: 'Home',
+          element: <Binances />,
         },
       ],
     },
