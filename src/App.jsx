@@ -2,8 +2,8 @@ import { Suspense } from "react"
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import "./App.css";
 import { Themes,Status,Spinner,NavBar } from "./pages";
-import Binances from "./components/Binanc";
-
+import Api from "./components/Api";
+import Binancs from "./components/Binanc";
 export default function App() {
   
   const router = createBrowserRouter([
@@ -13,15 +13,49 @@ export default function App() {
       children: [
         {
           index: true,
-           element: "Home",
+          element: "Home",
         },
         {
-          path: "/status",
+          path: "status",
           element: <Status />,
         },
         {
-          path: "/bn",
-          element: <Binances />,
+          path: "bn",
+          element: <Api />,
+        },
+        {
+          path: "about",
+          lazy: ()  => import("./pages/About"),
+        },
+        {
+          path: "dashboard",
+          async lazy() {
+            let { DashbordLayout } = await import("./pages/Dashboard");
+            return { Component: DashbordLayout };
+          },
+          children: [
+            {
+              index: true,
+              async lazy() {
+                let { DashboardIndex } = await import("./pages/Dashboard");
+                return { Component: DashboardIndex };
+              },
+            },
+            {
+              path: "messages",
+              async lazy() {
+                let { dashboardMessagesLoader, DashboardMessages } = await import("./pages/Dashboard");
+                return {
+                  loader: dashboardMessagesLoader,
+                  Component: DashboardMessages, 
+                  };
+              },
+            },
+          ],
+        },
+        {
+          path: "*",
+          element: "Errorr!!!!!",
         },
       ],
     },

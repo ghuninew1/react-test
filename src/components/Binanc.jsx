@@ -11,7 +11,7 @@ export default function Binances() {
     },[]);
     
     async function fetchData() {
-      const socket = io('ws://localhost:3000',{ transports: ["websocket"] }); 
+      const socket = await io('ws://localhost:3000',{ transports: ["websocket"] }); 
       socket.on('nodeData', (symbols)=>{
         setData(symbols)
     }); 

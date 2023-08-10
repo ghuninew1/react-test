@@ -12,8 +12,8 @@ function Status() {
       }, 1000);
     },[]);
     
-    function fetchData() {
-      const socket = io('ws://localhost:3000',{ transports: ["websocket"] }); 
+   async function fetchData() {
+      const socket = await io('ws://localhost:3000',{ transports: ["websocket"] }); 
       socket.emit("message", "hello");
       socket.on('nodeStatus', ({id,status,ip,label,time,lency})=>{
           setData((prevData)=>({
@@ -32,8 +32,7 @@ function Status() {
 }
 
 function Pings({data}) {
-
-  const tableRow = Object.values(data).map((node,idx)=>(
+   const tableRow = Object.values(data).map((node,idx)=>(
     <tr key={idx}>
       <td>{node.ip}</td>
       <td>{node.label}</td>
