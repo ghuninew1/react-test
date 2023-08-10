@@ -13,7 +13,7 @@ function Status() {
     },[]);
     
     function fetchData() {
-      const socket = io({ transports: ["websocket"] }); 
+      const socket = io('ws://localhost:3000',{ transports: ["websocket"] }); 
       socket.emit("message", "hello");
       socket.on('nodeStatus', ({id,status,ip,label,time,lency})=>{
           setData((prevData)=>({

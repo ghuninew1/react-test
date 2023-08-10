@@ -1,16 +1,24 @@
-import SocketClient from './lib/socketClient';
+import {WebsocketStream} from '@binance/connector';
+import { Console } from 'console'
 
-export const binanceapi = () =>{
- 
-  const streamName = 'btcusdt@trade';
+const logger = new Console({ stdout: process.stdout, stderr: process.stderr })
+export const binanceapi = (io) =>{
 
-  const socketClient = new SocketClient(`ws/${streamName}`, 'wss://stream.binance.com:9443/');
-  socketClient.setHandler('trade', (params) => {
-    const current = +new Date;
-    const TvsNow = current - params.T;
-    const EvsNow = current - params.E;
-    const EvsT = params.E - params.T;
-    console.log(`[Spot ${streamName}] current:${current} delta TvsNow: ${TvsNow}, EvsNow: ${EvsNow}, EvsT: ${EvsT}`);
-  });
+const binancesApi =()=>{
+  const callbacks = {
+  open: () => logger.debug('Connected with Websocket server'),
+  close: () => logger.debug('Disconnected with Websocket server'),
+  message: data => io.emit('nodeData', JSON.parse(data)),
+}
+const websocketStreamClient = new WebsocketStream({ logger, callbacks })
+// websocketStreamClient.subscribe('ethusdt@kline_1s')
+// disconnect the connection
+websocketStreamClient.miniTicker('ethusdt')
+// websocketStreamClient.rollingWindowTicker('1h', 'ethusdt')
+// websocketStreamClient;
+// websocketStreamClient.subscribe('ethusdt@kline_1s') 
+}
+// setInterval(() => binancesApi() ,5000)
 // close websocket stream
+binancesApi();
 }

@@ -24,14 +24,5 @@ export const createIOServer = (io)=> {
       });
     })
   }
-  io.on("connect", () => {
-    const isTims = new Date().toLocaleTimeString('th')
-    console.log('Connect',isTims); // x8WIv7-mJelg7on_ALbx
-  });
-  io.on("disconnect", () => {
-    const isTims = new Date().toLocaleTimeString('th')
-    console.log('disconnect',isTims); // undefined
-  });
-  // setTimeout(()=> {io.disconnectSockets(),console.log('Time out')}, 20000)
-  setInterval(() => pingAndupdate(), 2000)
+  setInterval(() => pingAndupdate(), 5000)
 }

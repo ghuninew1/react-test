@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-// https://vitejs.dev/config/
+import react from '@vitejs/plugin-react'
+
+
+
 export default defineConfig({
   plugins: [
     react(),
@@ -8,6 +10,9 @@ export default defineConfig({
   server: {
     strictPort: true,
     open: true,
-    host: '0.0.0.0',
+    host: true,
+    headers: {
+      origin: 'http://localhost:5173'
+    }
   },
 })

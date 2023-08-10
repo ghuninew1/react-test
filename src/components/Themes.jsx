@@ -1,11 +1,7 @@
 import { useContext, useState, useEffect } from "react"
 import { ThemeContext } from "./ThemeContext"
-import PropType from 'prop-types'
 
-Themes.propTypes = {
-  children: PropType.node.isRequired,
-  title: PropType.string,
-}
+
 function Themes({ children, title }) {
   const [theme, setTheme] = useState('dark');
   const [bg, setBg] = useState('#000');

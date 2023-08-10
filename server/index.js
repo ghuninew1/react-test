@@ -1,45 +1,33 @@
 import express from "express";
-import { createServer } from 'http';
-import {  createServer as createViteServer  } from "vite";
+import { createServer } from "http";
 import { createIOServer } from "./io.js";
-import { Server } from 'socket.io';
+import { Server } from "socket.io";
+import { binanceapi } from "./bn.js";
 
-const port = 3010;
 const app = express();
 const server = createServer(app);
 
-const io = new Server(server,{
+const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: "*",
   },
-    transports: ['websocket'],
-    pingInterval: 10000,
-    pingTimeout: 5000,
+  transports: ["websocket"],
+  pingInterval: 10000,
+  pingTimeout: 5000,
 });
 
-async function createMainServer() {
+createIOServer(io);
+binanceapi(io);
+io.on("connection", (socket) => {
+  console.log(`socket ${socket.id} connected`);
 
-  
-  createIOServer(io);
-
-  const vite = await createViteServer({
-    server: {
-      middlewareMode: true,
-      hmr: {
-        server
-      }
-    },
-    appType: "spa"
+  socket.on("disconnect", (reason) => {
+    console.log(`socket ${socket.id} disconnected due to ${reason}`);
   });
+});
 
-  app.use(vite.middlewares);
-
-  app.use(express.static("static"));
-  
-
-  server.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
-  });
-}
-
-createMainServer();
+server.listen(3000, (token) => {
+  if (!token) {
+    console.warn("port already in use");
+  }
+});

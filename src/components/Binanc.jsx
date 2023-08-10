@@ -10,28 +10,31 @@ export default function Binances() {
       fetchData();
     },[]);
     
-    function fetchData() {
-      const socket = io({ transports: ["websocket"] }); 
-
-      socket.on('dataFetch',(message)=>{
-        setData(message);
+    async function fetchData() {
+      const socket = io('ws://localhost:3000',{ transports: ["websocket"] }); 
+      socket.on('nodeData', (symbols)=>{
+        setData(symbols)
     }); 
+
   }
-  console.log(data);
 return (
   <div>
-    {/* <Binance text={text} /> */}
+    <Binance text={data} />
   </div>
 )
 }
 
 function Binance({text}) {
-    const tableRow2 =Object.keys(text).map((symbol,idx)=>(
-      <tr key={idx}>
-        <td>{symbol}</td>
-        <td>{Number(text[symbol].price).toFixed(2)}</td>
-        <td>{text[symbol].time}</td>
-      </tr>));
+    const tableRow2 = 
+      <tr >
+        <td>{text.s}</td>
+        <td>{Number(text.c).toFixed(2)}</td>
+        <td>{Number(text.h).toFixed(2)}</td>
+        <td>{Number(text.l).toFixed(2)}</td>
+        <td>{Number(text.v).toFixed(4)}</td>
+        <td>{new Date(text.E).toLocaleTimeString('th')}</td>
+
+      </tr>
     return (
       <>
         <table className="table">
@@ -41,6 +44,9 @@ function Binance({text}) {
             <tr>
               <th>Symbol</th>
               <th>Price</th>
+              <th>PriceHi</th>
+              <th>PriceLo</th>
+              <th>Volume</th>
               <th>Time</th>
             </tr>
           </thead>
