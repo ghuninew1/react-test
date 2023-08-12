@@ -2,7 +2,8 @@ import { useContext, useState, useEffect } from "react"
 import { ThemeContext } from "./ThemeContext"
 
 
-function Themes({ children, title }) {
+function Themes(props) {
+  const { children, title } = props;
   const [theme, setTheme] = useState('dark');
   const [bg, setBg] = useState('#000');
 
@@ -26,7 +27,8 @@ function Themes({ children, title }) {
   );
 }
 
-const Panel = ({ title, children,thm }) => {
+const Panel = (props) => {
+  const { title, children, thm } = props
   const theme = useContext(ThemeContext)
   const className = thm ? (thm + " " + theme) : (theme)
   return (
@@ -37,8 +39,8 @@ const Panel = ({ title, children,thm }) => {
   );
 }
 
-
-const Button = ({ children, onClick }) => {
+const Button = (props) => {
+  const { onClick, children } = props;
   const theme = useContext(ThemeContext)
   const className = "button-" + theme + " " + theme
   return (

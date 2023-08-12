@@ -2,20 +2,17 @@ import {useEffect, useState} from 'react'
 import io from "socket.io-client";
 
 export default function Binances() {
-  // const [text, setText] = useState([]);
   const [data,setData] = useState([]);
-  const [time, setTime] = useState();
 
     useEffect(() =>{  
       fetchData();
     },[]);
     
     async function fetchData() {
-      const socket = await io('ws://localhost:3000',{ transports: ["websocket"] }); 
+      const socket = await io('ws://localhost:3001',{ transports: ["websocket"] }); 
       socket.on('nodeData', (symbols)=>{
         setData(symbols)
     }); 
-
   }
 return (
   <div>
@@ -33,7 +30,6 @@ function Binance({text}) {
         <td>{Number(text.l).toFixed(2)}</td>
         <td>{Number(text.v).toFixed(4)}</td>
         <td>{new Date(text.E).toLocaleTimeString('th')}</td>
-
       </tr>
     return (
       <>

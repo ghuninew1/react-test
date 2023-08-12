@@ -3,18 +3,13 @@ import io from "socket.io-client";
 
 function Status() {
   const [data,setData] = useState([]);
-  const [time, setTime] = useState();
 
     useEffect(() =>{  
       fetchData();
-      setInterval(() => {
-        setTime(new Date().toLocaleTimeString('th'))    
-      }, 1000);
     },[]);
     
-   async function fetchData() {
-      const socket = await io('ws://localhost:3000',{ transports: ["websocket"] }); 
-      socket.emit("message", "hello");
+    function fetchData() {
+      const socket = io('ws://localhost:3001',{ transports: ["websocket"] }); 
       socket.on('nodeStatus', ({id,status,ip,label,time,lency})=>{
           setData((prevData)=>({
             ...prevData,
@@ -25,7 +20,6 @@ function Status() {
 
   return (
     <div>
-      {time}
       <Pings data={data} />
     </div>
   )

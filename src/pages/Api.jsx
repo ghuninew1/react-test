@@ -16,11 +16,11 @@ const Api = ()  => {
       
 console.log(text)
   return (
-    <>
+    <div className="api">
       {text.map((data)=><ul key={data.id}>
         <li>{data.id} {data.title}</li>
       </ul>)}
-    </>
+    </div>
   )
 }
 export default Api
