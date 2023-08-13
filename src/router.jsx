@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Outlet,Navigate } from "react-router-dom";
 import { Suspense } from "react"
 import { Themes,Status,Spinner,NavBar,Binancs,Api } from "./pages";
 
@@ -26,38 +26,16 @@ const router = createBrowserRouter([
         {
           path: "about",
           lazy: ()  => import("./pages/About"),
-        },
-        {
-          path: "dashboard",
-          async lazy() {
-            let { DashbordLayout } = await import("./pages/Dashboard");
-            return { Component: DashbordLayout };
-          },
-          children: [
-            {
-              index: true,
-              async lazy() {
-                let { DashboardIndex } = await import("./pages/Dashboard");
-                return { Component: DashboardIndex };
-              },
-            },
-            {
-              path: "messages",
-              async lazy() {
-                let { dashboardMessagesLoader, DashboardMessages } = await import("./pages/Dashboard");
-                return {
-                  loader: dashboardMessagesLoader,
-                  Component: DashboardMessages, 
-                  };
-              },
-            },
-          ],
-        },
-        {
-          path: "*",
-          element: "Errorr!!!!!",
-        },
+        },       
       ],
+    },
+    {
+      path: "/404",
+      element: "NotFound",
+    },
+    {
+      path: "*",
+      element: <Navigate to="/404" replace />,
     },
   ]);
 

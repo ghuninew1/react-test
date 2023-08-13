@@ -29,14 +29,13 @@ const NavBar = () => {
             <label htmlFor="checkbox_toggle" className={boolean ? "hamburger" : "hamburger opened"} onClick={() => setBoolean(!boolean)}>
               {svgs}
             </label>
-            <div className={className}>
+            <ul className={className}>
               <li className={classN("")}><NavLink style={{textDecoration: 'none'}} end to="/">HOME</NavLink></li>
               <Links name={"status"} />
               <Links name={"bn"} />
-              <Links name={"dashboard"} />
               <Links name={"about"} />
               <Links name={"api"} />
-            </div>
+            </ul>
           </ul>
       </nav>
     </>

@@ -15,5 +15,4 @@ const Notify = async (token,message) => {
     
   return response
 }
-
 export default Notify

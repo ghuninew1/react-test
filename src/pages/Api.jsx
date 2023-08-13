@@ -10,11 +10,7 @@ const Api = ()  => {
       .then(data=>data.json())
       .then(data=>setText(data))
      }, []);
-
-
-
       
-console.log(text)
   return (
     <div className="api">
       {text.map((data)=><ul key={data.id}>
