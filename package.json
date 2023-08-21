@@ -8,7 +8,9 @@
     "build": "vite build",
     "server": "nodemon ./server",
     "lint": "eslint --max-warnings 0",
-    "lint:fix": "eslint --max-warnings 0 --fix"
+    "lint:fix": "eslint --max-warnings 0 --fix",
+    "dev2": "wrangler pages dev --live-reload --compatibility-date=2023-08-21 -- pnpm run dev",
+    "pages:deploy": "pnpm run build && wrangler pages deploy ./dist"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -18,14 +20,14 @@
   "devDependencies": {
     "@binance/connector": "3.0.0-rc.2",
     "@types/express": "^4.17.17",
-    "@types/node": "^20.4.10",
+    "@types/node": "^20.5.1",
     "@types/nodemon": "^1.19.2",
     "@types/ping": "^0.4.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.4",
     "eslint": "^8.47.0",
-    "eslint-plugin-react": "^7.33.1",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "express": "^4.18.2",
@@ -33,7 +35,8 @@
     "ping": "^0.4.4",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "wrangler": "^3.5.1"
   },
   "license": "ISC"
 }
