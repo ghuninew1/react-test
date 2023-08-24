@@ -20,10 +20,10 @@
   "devDependencies": {
     "@binance/connector": "3.0.0-rc.2",
     "@types/express": "^4.17.17",
-    "@types/node": "^20.5.1",
+    "@types/node": "^20.5.4",
     "@types/nodemon": "^1.19.2",
     "@types/ping": "^0.4.1",
-    "@types/react": "^18.2.20",
+    "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.4",
     "eslint": "^8.47.0",
