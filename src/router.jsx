@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet,Navigate } from "react-router-dom";
 import { Suspense } from "react"
-import { Themes,Status,Spinner,NavBar,Binancs,Api } from "./pages";
+import { Themes,Status,Spinner,NavBar,Binancs,Api,Api2 } from "./pages";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +22,10 @@ const router = createBrowserRouter([
         {
           path: "api",
           element: <Api />,
+        },
+        {
+            path: "api2",
+            element: <Api2 />,
         },
         {
           path: "about",

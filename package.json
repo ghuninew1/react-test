@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host --open ",
+    "dev": "vite --host --open --no-cors --port 3000",
     "build": "vite build",
     "server": "nodemon ./server",
     "lint": "eslint --max-warnings 0",

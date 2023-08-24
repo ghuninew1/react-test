@@ -35,6 +35,7 @@ const NavBar = () => {
               <Links name={"bn"} />
               <Links name={"about"} />
               <Links name={"api"} />
+              <Links name={"api2"} />
             </ul>
           </ul>
       </nav>
