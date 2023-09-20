@@ -1,12 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const NavBar = () => {
-  const links = [
-    { to: "/", name: "Home" },
-    { to: "/about", name: "About" },
-    { to: "/contact", name: "Contact" },
-    { to: "/login", name: "Login" },
-];
+const NavBar = (links) => {
   return (
     <nav>
       {links.map((link, idx) => (
