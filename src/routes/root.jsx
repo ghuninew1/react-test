@@ -1,10 +1,7 @@
 import { Outlet } from "react-router-dom";
-// import { useContext } from "react";
-// import { DataContext } from "../store/DataContext";
-import NavBar from "./NavBar";
+import { NavBar } from "../component/NavBar";
 
 export default function Root() {
-    // const data = useContext(DataContext);
     const links = [
         { to: "/", name: "Home" },
         { to: "/about", name: "About" },
@@ -12,9 +9,9 @@ export default function Root() {
         { to: "/login", name: "Login" },
     ];
     return (
-            <main >
-                <NavBar links={links} />
-                <Outlet />
-            </main>
+        <main>
+            {NavBar(links)}
+            <Outlet />
+        </main>
     );
 }

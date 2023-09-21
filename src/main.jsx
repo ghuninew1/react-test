@@ -3,11 +3,9 @@ import ReactDOM from "react-dom/client";
 import App from './App.jsx'
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root from "./routes/root";
-import ErrorPage from "./routes/error-page.jsx";
+import Root from "./routes/Root.jsx";
+import ErrorPage from "./routes/ErrorPage.jsx";
 import Themes from "./store/Themes.jsx";
-
-    // const data = useContext(DataContext);
 
 const router = createBrowserRouter([
     {
@@ -21,7 +19,6 @@ const router = createBrowserRouter([
             { path: "/login", element: "Login"},
         ],
     },
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

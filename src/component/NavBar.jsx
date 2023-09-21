@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const NavBar = (links) => {
+export const NavBar = (links) => {
   return (
     <nav>
       {links.map((link, idx) => (
@@ -11,5 +11,3 @@ const NavBar = (links) => {
     </nav>
   )
 }
-
-export default NavBar
