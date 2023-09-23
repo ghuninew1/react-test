@@ -4,14 +4,15 @@ import { NavBar } from "../component/NavBar";
 export default function Root() {
     const links = [
         { to: "/", name: "Home" },
-        { to: "/about", name: "About" },
-        { to: "/contact", name: "Contact" },
-        { to: "/login", name: "Login" },
+        { to: "/api", name: "Api" },
+        { to: "/signin", name: "Sign In" },
+        { to: "/signup", name: "Sign Up" },
     ];
     return (
         <main>
-            {NavBar(links)}
+            <header>{NavBar(links)}</header>
             <Outlet />
+            <footer className="footer">@2023 GhuniNeW</footer>
         </main>
     );
 }

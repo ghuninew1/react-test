@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/Root.jsx";
 import ErrorPage from "./routes/ErrorPage.jsx";
 import Themes from "./store/Themes.jsx";
+import Login from "./pages/login/Login.jsx";
+import Api from "./pages/api/Api.jsx";
 
 const router = createBrowserRouter([
     {
@@ -14,9 +16,9 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: "/", index: true, element: <App /> },
-            { path: "/about", element: "About"},
-            { path: "/contact", element: "Contact"},
-            { path: "/login", element: "Login"},
+            { path: "/api", element: <Api />},
+            { path: "/signin", element: <Login />},
+            { path: "/signup", element: <Login />},
         ],
     },
 ]);

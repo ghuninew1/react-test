@@ -1,105 +1,157 @@
 :root {
-  font-family: sans-serif, Helvetica, Arial;
+    font-family: sans-serif, Helvetica, Arial;
 }
 
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  margin: 0;
-  place-items: center;
-  min-height: 100vh;
+    margin: 0;
+    place-items: center;
+    height: 100vh;
+    box-sizing: border-box;
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 0;
-  position: relative;
-  margin: 0 auto;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    font-size: 14px;
 }
-
-nav{
-  display: inline-flex;
-  position: sticky;
-  align-items: center;
-  width: 100%;
-  padding: 0;
-  margin: 0 auto;
-  justify-content: center;
-
+section{
+    text-align: center;
+}
+nav {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+}
+nav ul {
+    display: inline-flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 nav a {
-  text-decoration: none;
-  margin: 5px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #807e7f38;
+    text-decoration: none;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #af02594b;
+    font-size: 15px;
+    color: #000;
 }
 .active {
-  color: #0b9a04;
-  outline: 1px solid #0ddc3a74;
-  font-weight: 700;
+    color: #0b9a04;
+    outline: 2px solid #0ddc3a74;
+    font-weight: 550;
 }
 a {
-  list-style: none;
-  text-align: center;
+    list-style: none;
+    text-align: center;
 }
-nav:hover a:hover {
-  color: #c51902;
-  outline: 3px solid #ff5c04;
+nav:hover ul:hover a:hover {
+    color: #c51902;
+    outline: 3px solid #ff5c04;
 }
 button {
-  margin: 5px;
-  padding: 10px;
-  border-radius: 5px;
-  font-weight: 700;
-  outline: 2px solid #0d2fdc74;
-  cursor: pointer;
+    cursor: pointer;
 }
-button:hover {
-  color: #008004;
-  outline: 3px solid #05c51f;
+.btn {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: 1px solid #f37908;
+    cursor: pointer;
+    background-color: #f37a0838;
+}
+.btn:hover {
+    color: #008004;
+    outline: 3px solid #05c51f;
 }
 
-.dark, .light {
-  margin: 0;
-  padding: 0;
-  border: none;
-}
 .dark {
-  color: #ffffff;
-  background-color: #000000;
+    color: #ffffff;
+    background-color: #000000;
 }
 .light {
-  color: #000000;
-  background-color: #ffffff;
+    color: #000000;
+    background-color: #ffffff;
 }
 .dl {
-  display: inline;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 15px;
-  padding: 10px;
-  z-index: 5;
-  border-radius: 100%;
+    display: inline-flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    padding: 10px;
+    z-index: 5;
+    border-radius: 100%;
 }
 #error-page {
-  display: flex;
-  flex-direction: column;
-  height: 50vh;
-  width: 100%;
-  position: absolute;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 700;
+    height: 50vh;
+    width: 100%;
+    position: absolute;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+}
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-top: 1px solid #807e7f38;
+}
+.form input {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #af02594b;
+    outline: none;
+    font-size: 15px;
+    color: #000;
+    border-radius: 5px;
+}
+.form button {
+    margin-left: -25px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.form button:hover {
+    transform: scale(1.2);
+}
+.table {
+    border-collapse: collapse;
+    text-align: center;
+    outline: 1px solid #0000001a;
+}
+.table td {
+    padding: 5px;
+    border-bottom: 1px solid #0000001a;
+}
+.table td:nth-child(1) {
+    text-align: end;
+    border-right: 1px solid #0000001a;
+    font-weight: 600;
+}
+.table td:nth-child(2) {
+    text-align: start;
+    max-width: 500px;
+    font-size: 13px;
 }
