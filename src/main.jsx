@@ -8,6 +8,8 @@ import ErrorPage from "./routes/ErrorPage.jsx";
 import Themes from "./store/Themes.jsx";
 import Login from "./pages/login/Login.jsx";
 import Api from "./pages/api/Api.jsx";
+import Ping from "./pages/ping/Ping.jsx";
+import Upload from "./pages/api/Upload.jsx";
 
 const router = createBrowserRouter([
     {
@@ -17,8 +19,10 @@ const router = createBrowserRouter([
         children: [
             { path: "/", index: true, element: <App /> },
             { path: "/api", element: <Api />},
+            { path: "/ping", element: <Ping />},
             { path: "/signin", element: <Login />},
             { path: "/signup", element: <Login />},
+            { path: "/upload", element: <Upload />},
         ],
     },
 ]);

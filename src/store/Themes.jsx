@@ -1,23 +1,29 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { ThemeContext } from "./DataContext";
 import PropTypes from "prop-types";
 
 const Themes = ({ children }) => {
-    const [theme, setTheme] = useState("light");
-    const [isBg, setIsBg] = useState("#fff");
-    useEffect(() => {
-        const bodys = document.querySelector("body");
-        bodys.style.backgroundColor = isBg;
-    }, [isBg, theme]);
 
-    const ClickOn = () => {
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+    useEffect(() => {
+        localStorage.setItem("theme", theme);
+        document.documentElement.setAttribute("data-bs-theme", theme);
+    }, [theme]);
+
+    const handleTheme = useCallback(() => {
         setTheme(theme === "dark" ? "light" : "dark");
-        theme === "dark" ? setIsBg("#fff") : setIsBg("#000");
-    };
+    } , [theme]);
+
+    const contextValue = useMemo(() => {
+        return {
+            theme,
+            handleTheme,
+        };
+    } , [theme, handleTheme]);
     return (
-        <ThemeContext.Provider value={theme}>
-            <button onClick={ClickOn} className={"dl "+theme}></button>
-            <section className={theme}>{children}</section>
+        <ThemeContext.Provider value={contextValue}>
+            {children}
         </ThemeContext.Provider>
     );
 };
