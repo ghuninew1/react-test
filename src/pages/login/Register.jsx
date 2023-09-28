@@ -1,11 +1,12 @@
-const Login = () => {
+
+const Register = () => {
     return (
         <>
-            <div className="modal modal-sheet d-block mt-5 pt-5" tabIndex="-1">
+            <div className="modal modal-sheet d-block bg-body-secondary p-4 py-md-5 mt-5">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content rounded-4 shadow">
                         <div className="modal-header p-5 pb-4 border-bottom-0">
-                            <h1 className="fw-bold mb-0 fs-2">Log In</h1>
+                            <h1 className="fw-bold mb-0 fs-2">Sign up for free</h1>
                             <button
                                 type="button"
                                 className="btn-close"
@@ -14,7 +15,7 @@ const Login = () => {
                             ></button>
                         </div>
 
-                        <div className="modal-body p-5 pt-0 ">
+                        <div className="modal-body p-5 pt-0">
                             <form className="">
                                 <div className="form-floating mb-3">
                                     <input
@@ -38,10 +39,10 @@ const Login = () => {
                                     className="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
                                     type="submit"
                                 >
-                                    Sign in
+                                    Sign up
                                 </button>
                                 <small className="text-body-secondary">
-                                    By clicking Sign in, you agree to the terms of use.
+                                    By clicking Sign up, you agree to the terms of use.
                                 </small>
 
                                 <hr className="my-4" />
@@ -53,7 +54,7 @@ const Login = () => {
                                     <svg className="bi me-1" width="16" height="16">
                                         <use xlinkHref="#twitter" />
                                     </svg>
-                                    Sign in with Twitter
+                                    Sign up with Twitter
                                 </button>
                                 <button
                                     className="w-100 py-2 mb-2 btn btn-outline-primary rounded-3"
@@ -62,7 +63,7 @@ const Login = () => {
                                     <svg className="bi me-1" width="16" height="16">
                                         <use xlinkHref="#facebook" />
                                     </svg>
-                                    Sign in with Facebook
+                                    Sign up with Facebook
                                 </button>
                                 <button
                                     className="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
@@ -71,7 +72,7 @@ const Login = () => {
                                     <svg className="bi me-1" width="16" height="16">
                                         <use xlinkHref="#github" />
                                     </svg>
-                                    Sign in with GitHub
+                                    Sign up with GitHub
                                 </button>
                             </form>
                         </div>
@@ -82,4 +83,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

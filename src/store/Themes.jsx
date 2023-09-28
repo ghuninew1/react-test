@@ -1,9 +1,8 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ThemeContext } from "./DataContext";
 import PropTypes from "prop-types";
 
 const Themes = ({ children }) => {
-
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
     useEffect(() => {
@@ -13,19 +12,9 @@ const Themes = ({ children }) => {
 
     const handleTheme = useCallback(() => {
         setTheme(theme === "dark" ? "light" : "dark");
-    } , [theme]);
+    }, [theme]);
 
-    const contextValue = useMemo(() => {
-        return {
-            theme,
-            handleTheme,
-        };
-    } , [theme, handleTheme]);
-    return (
-        <ThemeContext.Provider value={contextValue}>
-            {children}
-        </ThemeContext.Provider>
-    );
+    return <ThemeContext.Provider value={{ theme, handleTheme }}>{children}</ThemeContext.Provider>;
 };
 
 Themes.propTypes = {

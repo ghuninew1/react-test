@@ -1,4 +1,4 @@
-import { Navbar } from "react-bootstrap";
+import { Navbar, Dropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import ScrollListener from "./ScrollListener";
 import { useEffect, useState, useContext } from "react";
@@ -35,31 +35,58 @@ export const NavBar = (links) => {
     }, [scroll.lastY, scroll.y]);
 
     return (
-        <div className="nav-bar my-2 py-0">
+        <div style={{ zIndex: 9999 }}>
             <Navbar
                 expand="md"
                 style={style}
-                bg="dark"
-                variant="dark"
-                className={"fixed-top border-bottom"}
+                bg=""
+                variant=""
+                className="border-bottom fixed-top"
             >
                 <Navbar.Brand href="#" className="mx-2" onClick={handleThemes}>
                     GNEW
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse className={"justify-content-end"}>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className="mx-2" />
+                <Navbar.Collapse className={"justify-content-end mx-2"}>
                     {links &&
-                        links.map((link) => (
-                            <Navbar.Text key={link.name} className={"nav-item"}>
-                                <NavLink
-                                    to={link.to}
-                                    end={link.to === "/" ? true : false}
-                                    className={"nav-link text-decoration-none mx-2 px-2 py-1 my-1"}
-                                >
-                                    {link.name}
-                                </NavLink>
-                            </Navbar.Text>
-                        ))}
+                        links
+                            .filter((link) => link.hidden !== true)
+                            .map((link) => (
+                                <Navbar.Text key={link.name}>
+                                    <NavLink
+                                        to={link.to}
+                                        end={link.to === "/" ? true : false}
+                                        className="nav-link text-decoration-none mx-2 px-2 py-1"
+                                    >
+                                        {link.name && link.name}
+                                    </NavLink>
+                                </Navbar.Text>
+                            ))}
+                    <Dropdown hidden={false}>
+                        <Dropdown.Toggle variant="" className="rounded-circle">
+                            <img
+                                src="https://github.com/mdo.png"
+                                alt="mdo"
+                                width="32"
+                                height="32"
+                                className="rounded-circle"
+                            />
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu className="dropdown-menu-end text-center w-100">
+                            {links &&
+                                links
+                                    .filter((link) => link.hidden === true)
+                                    .map((link) => (
+                                        <NavLink
+                                            key={link.name}
+                                            to={link.to}
+                                            className={"dropdown-item my-1"}
+                                        >
+                                            {link.name}
+                                        </NavLink>
+                                    ))}
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </Navbar.Collapse>
             </Navbar>
         </div>
