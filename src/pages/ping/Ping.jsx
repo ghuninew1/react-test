@@ -1,11 +1,11 @@
 import { useState, useRef } from "react";
 // import useSWR from 'swr'
 // import axios from "axios";
-import Request from "../../component/Request";
+import useRequest from "../../component/Request";
 import { Button, Container, Form, InputGroup, Table } from "react-bootstrap";
 
 export default function Ping() {
-    // const [datas, setDatas] = useState([]);
+    const [data, setData] = useState([]);
     const [ip, setIp] = useState(null);
     const [path, setPath] = useState("ip");
     const [visible, setVisible] = useState(true);
@@ -13,8 +13,9 @@ export default function Ping() {
     const inputRef = useRef(null);
     const url = import.meta.env.VITE_API_URL + path + (ip === null || ip === "" ? "" : "?ip=") + (ip === null ? "" : ip)
 
-    const { data, error } = Request({ url });
-    if (error) return <div>failed to load</div>;
+    // const { data, error } = useRequest({ url });
+    // if (error) return <div>failed to load</div>;
+    // if (!data) return <div>loading...</div>;
     
 
     const resetFileInput = () => {

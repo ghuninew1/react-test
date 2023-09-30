@@ -4,51 +4,44 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../component/Footer";
 import { useEffect, useState } from "react";
 import { UserContext } from "../store/DataContext";
-import axios from "axios";
+import { currentUser } from "../component/Auth.service";
 
 export default function Root() {
-    const [tokens, setTokens] = useState(null);
     const [user, setUser] = useState(null);
+    const [show, setShow] = useState(false);
+
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
-        localStorage.getItem("token") && setTokens(JSON.parse(localStorage.getItem("token")));
-        checkToken();
-    }, [tokens]);
+        currentUser().then((res) => {
+            setUser(res?.data);
+            setShow(true);
+        });
+    }, [token]);
 
-    console.log("tokens", tokens);
-    console.log("user", user);
-    const checkToken = async () => {
-        let config = {
-            method: "post",
-            maxBodyLength: Infinity,
-            url: import.meta.env.VITE_API_URL + "users",
-            headers: {
-                authtoken: tokens,
-            },
-        };
-        try {
-            await axios(config).then((res) => {
-                console.log(res.data);
-                setUser(res.data);
-            });
-        } catch (error) {
-            console.log(error);
-        }
+    const handleUser = () => {
+        setUser(user?.name ? null : user);
     };
+    console.log("user", user);
 
     const links = [
         { to: "/", name: "Home" },
         { to: "/api", name: "Api" },
         { to: "/ping", name: "Ping" },
         { to: "/upload", name: "Upload" },
-        { to: "/login", name: "Login", hidden: user ? true : false },
-        { to: "/register", name: "Register", hidden: user ? true : false },
-        { to: "/profile", name: "Profile", hidden: user ? false : false, login: true },
-        { to: "#", name: "Logout", hidden: user ? false : false, login: true },
+        { to: "/login", name: "Login", hidden: user?.name === null ? false : true },
+        { to: "/register", name: "Register", hidden: user?.name === null ? false : true },
+        {
+            to: "/profile",
+            name: "Profile",
+            hidden: user?.name === null ? true : false,
+            login: true,
+        },
+        { to: "#", name: "Logout", hidden: user?.name === null ? true : false, login: true },
     ];
-    // console.log("token", tokens);
+
     return (
-        <UserContext.Provider value={{ tokens, setTokens, user, setUser }}>
+        <UserContext.Provider value={{ user, handleUser }}>
             <div className="cover-container d-flex w-100 h-100 mx-auto flex-column min-vh-100 ">
                 <header> {NavBar(links)}</header>
                 <main className="mt-3">
