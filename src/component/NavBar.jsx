@@ -8,6 +8,7 @@ export const NavBar = (links) => {
     const scroll = ScrollListener();
     const [style, setStyle] = useState({});
     const contextValue = useContext(ThemeContext);
+    const theme = contextValue.theme;
 
     const handleThemes = () => {
         contextValue.handleTheme();
@@ -41,7 +42,7 @@ export const NavBar = (links) => {
                 style={style}
                 bg=""
                 variant=""
-                className="border-bottom fixed-top"
+                className={`border-bottom fixed-top ${theme}`}
             >
                 <Navbar.Brand href="#" className="mx-2" onClick={handleThemes}>
                     GNEW
@@ -50,7 +51,7 @@ export const NavBar = (links) => {
                 <Navbar.Collapse className={"justify-content-end mx-2"}>
                     {links &&
                         links
-                            .filter((link) => link.hidden !== true)
+                            .filter((link) => link.hidden !== true && link.login !== true)
                             .map((link) => (
                                 <Navbar.Text key={link.name}>
                                     <NavLink
@@ -62,7 +63,7 @@ export const NavBar = (links) => {
                                     </NavLink>
                                 </Navbar.Text>
                             ))}
-                    <Dropdown hidden={false}>
+                    <Dropdown hidden={theme === "dark" ? true : false}>
                         <Dropdown.Toggle variant="" className="rounded-circle">
                             <img
                                 src="https://github.com/mdo.png"
@@ -75,7 +76,7 @@ export const NavBar = (links) => {
                         <Dropdown.Menu className="dropdown-menu-end text-center w-100">
                             {links &&
                                 links
-                                    .filter((link) => link.hidden === true)
+                                    .filter((link) => link.login === true)
                                     .map((link) => (
                                         <NavLink
                                             key={link.name}

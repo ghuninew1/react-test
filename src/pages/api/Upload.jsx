@@ -11,10 +11,13 @@ const Upload = () => {
     const [upload, setUpload] = useState("");
 
     const inputRef = useRef(null);
+    const inputNameRef = useRef(null);
 
     const resetFileInput = () => {
         inputRef.current.value = null;
+        inputNameRef.current.value = null;
         setFiles(null);
+        setName("");
     };
 
     const onSubmit = (e) => {
@@ -27,8 +30,9 @@ const Upload = () => {
             setUpload(`${loaded}kb of ${total}kb | ${percent}%`);
             setUploadPercentage(percent);
         };
+
         formData.append("file", files[0]);
-        formData.append("name", name);
+        formData.append("name", inputNameRef.current.value);
         const config = {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -39,7 +43,7 @@ const Upload = () => {
         axios
             .post(url, formData, config)
             .then((res) => {
-                setUpload(res.data.message +" : "+ res.data.upload)
+                setUpload(res.data.message + " : " + res.data.upload);
             })
             .catch((err) => console.log(err));
 
@@ -65,12 +69,12 @@ const Upload = () => {
                         )}
                         {files[0].size && <p>File Size: {files[0].size / 1000} KB</p>}
                         {files[0].type.includes("image") && (
-                                <img
-                                    src={URL.createObjectURL(files[0])}
-                                    alt="preview"
-                                    style={{ width: "200px", height: "auto" }}
-                                />
-                            )}
+                            <img
+                                src={URL.createObjectURL(files[0])}
+                                alt="preview"
+                                style={{ width: "200px", height: "auto" }}
+                            />
+                        )}
                     </Form.Label>
                 )}
                 <Form.Group controlId="formFile" className="mb-3">
@@ -80,20 +84,21 @@ const Upload = () => {
                         <Form.Control
                             type="text"
                             placeholder="Name"
-                            onChange={(e) => setName(e.target.value)}
                             value={name}
+                            ref={inputNameRef}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </InputGroup>
                     <InputGroup className="mb-3">
-                    <InputGroup.Text>Upload</InputGroup.Text>
+                        <InputGroup.Text>Upload</InputGroup.Text>
                         <Form.Control
                             type="file"
                             className="form-control"
                             aria-label="Upload"
-                            onChange={(e) => setFiles(e.target.files)}
                             formEncType="multipart/form-data"
                             disabled={showProgressBar}
                             ref={inputRef}
+                            onChange={(e) => setFiles(e.target.files)}
                         />
                         <Button variant="outline-secondary" onClick={resetFileInput}>
                             Clear

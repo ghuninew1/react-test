@@ -10,6 +10,7 @@ import Login from "./pages/login/Login.jsx";
 import Api from "./pages/api/Api.jsx";
 import Ping from "./pages/ping/Ping.jsx";
 import Upload from "./pages/api/Upload.jsx";
+import Register from "./pages/login/Register.jsx";
 
 const router = createBrowserRouter([
     {
@@ -20,9 +21,10 @@ const router = createBrowserRouter([
             { path: "/", index: true, element: <App /> },
             { path: "/api", element: <Api />},
             { path: "/ping", element: <Ping />},
-            { path: "/signin", element: <Login />},
-            { path: "/signup", element: <Login />},
             { path: "/upload", element: <Upload />},
+            { path: "/login", element: <Login />},
+            { path: "/register", element: <Register />},
+
         ],
     },
 ]);

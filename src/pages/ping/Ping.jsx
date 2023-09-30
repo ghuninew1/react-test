@@ -1,23 +1,30 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useRef } from "react";
+// import useSWR from 'swr'
+// import axios from "axios";
+import Request from "../../component/Request";
 import { Button, Container, Form, InputGroup, Table } from "react-bootstrap";
 
 export default function Ping() {
-    const [data, setData] = useState([]);
+    // const [datas, setDatas] = useState([]);
     const [ip, setIp] = useState(null);
-    const [path, setPath] = useState("ping");
-    const [visible, setVisible] = useState(false);
+    const [path, setPath] = useState("ip");
+    const [visible, setVisible] = useState(true);
 
-    const feshData = async () => {
-        await axios
-            .get(
-                import.meta.env.VITE_API_URL +
-                    path +
-                    (ip === null || ip === "" ? "" : "?ip=") +
-                    (ip === null ? "" : ip)
-            )
-            .then((data) => setData(data.data));
+    const inputRef = useRef(null);
+    const url = import.meta.env.VITE_API_URL + path + (ip === null || ip === "" ? "" : "?ip=") + (ip === null ? "" : ip)
+
+    const { data, error } = Request({ url });
+    if (error) return <div>failed to load</div>;
+    
+
+    const resetFileInput = () => {
+        inputRef.current.value = null;
     };
+
+    const handleChang = (e) => {
+        setIp(e.target.value);
+    };
+
     const dataResult = (items = []) => {
         if (path === "ping") {
             if (items.length > 1) {
@@ -52,10 +59,9 @@ export default function Ping() {
         }
     };
 
-    const hendleSubmit = (e) => {
+    const hendleSubmit = async(e) => {
         e.preventDefault();
-        feshData();
-        setVisible(true);
+        setVisible(false);
     };
 
     return (
@@ -66,16 +72,23 @@ export default function Ping() {
             >
                 <Form.Group className="mb-3">
                     <InputGroup className="mb-3">
-                        <InputGroup.Text >
-                            {path === "ping" ? "Ping" : "Dns"}
-                        </InputGroup.Text>
+                        <InputGroup.Text>{path === "ping" ? "Ping" : "Dns"}</InputGroup.Text>
+
                         <Form.Control
                             type="text"
                             placeholder="Ip"
                             aria-label="Ip"
-                            onChange={(e) => setIp(e.target.value)}
+                            onChange={handleChang}
+                            ref={inputRef}
                         />
-                        <Button variant="outline-secondary" type="submit">
+
+                        <Button
+                            variant="outline-secondary"
+                            onClick={resetFileInput}
+                            className="btn-sm"
+                        />
+
+                        <Button variant="outline-info" type="submit" className="btn-sm">
                             Submit
                         </Button>
                     </InputGroup>
@@ -101,7 +114,7 @@ export default function Ping() {
             </Form>
             <Table striped bordered hover variant="" hidden={!visible} className="table-responsive">
                 <thead>
-                    {path === "ping" && data.length > 1 ? (
+                    {path === "ping" && data ? (
                         <tr>
                             <th>Host</th>
                             <th>InputHost</th>

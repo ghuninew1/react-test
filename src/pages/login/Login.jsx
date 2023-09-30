@@ -1,27 +1,51 @@
+import axios from "axios";
+import { useState } from "react";
+
 const Login = () => {
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleCreate = async (e) => {
+        e.preventDefault();
+        const user = { name, password };
+        const url = import.meta.env.VITE_API_URL;
+        const option = { headers: { "Content-Type": "application/json" } };
+        try {
+            await axios.post(`${url}login`, user, option).then((res) => {
+                console.log(res.data);
+                localStorage.setItem("token", JSON.stringify(res.data.token));
+                alert("Login success " + res.data);
+                window.location.href = "/";
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        
+    };
     return (
         <>
             <div className="modal modal-sheet d-block mt-5 pt-5" tabIndex="-1">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content rounded-4 shadow">
                         <div className="modal-header p-5 pb-4 border-bottom-0">
-                            <h1 className="fw-bold mb-0 fs-2">Log In</h1>
+                            {/* <h1 className="fw-bold mb-0 fs-2">Log In</h1>
                             <button
                                 type="button"
                                 className="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
-                            ></button>
+                            ></button> */}
                         </div>
 
                         <div className="modal-body p-5 pt-0 ">
-                            <form className="">
+                            <form className="" action="/login" method="POST" onSubmit={handleCreate}>
                                 <div className="form-floating mb-3">
                                     <input
-                                        type="email"
+                                        type="username"
                                         className="form-control rounded-3"
                                         id="floatingInput"
                                         placeholder="name@example.com"
+                                        onChange={(e) => setName(e.target.value)}
                                     />
                                     <label htmlFor="floatingInput">Email or username</label>
                                 </div>
@@ -31,6 +55,7 @@ const Login = () => {
                                         className="form-control rounded-3"
                                         id="floatingPassword"
                                         placeholder="Password"
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                     <label htmlFor="floatingPassword">Password</label>
                                 </div>
