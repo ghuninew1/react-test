@@ -1,31 +1,36 @@
-import axios from "axios";
-import { useState } from "react";
-
+import GetData from "../../component/GetData";
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
+    const userRef = useRef();
+    const passRef = useRef();
+    const emailRef = useRef();
+    const navigator = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const url = import.meta.env.VITE_API_URL;
-        const option = { headers: { "Content-Type": "application/json" } };
-        const body = { name, email, password };
+        const body = {
+            username: userRef.current.value,
+            email: emailRef.current.value,
+            password: passRef.current.value,
+        };
         try {
-            await axios.post(`${url}register`, body, option).then((res) => {
-                // localStorage.setItem("user", JSON.stringify(res.data));
-                alert("Register success " + res.data)
-                window.location.href = "/login";
+            await GetData.signup(body).then((res) => {
+                if (res.data.user) {
+                    alert("Register success" + res.message);
+                    navigator("/signin");
+                } else {
+                    alert("Register failed" + res.message);
+                }
             });
         } catch (error) {
-            console.log(error);
+            console.log("error", error);
         }
     };
     return (
         <>
-            <div className="modal modal-sheet d-block mt-5 " tabIndex="-1" role="dialog">
+            <div className="modal modal-md modal-sheet d-block mt-5 " role="dialog">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content rounded-4 shadow">
                         <div className="modal-header p-5 pb-4 border-bottom-0">
@@ -39,46 +44,41 @@ const Register = () => {
                         </div>
 
                         <div className="modal-body p-5 pt-2">
-                            <form className="" action="/register" method="POST" onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit}>
                                 <div className="form-floating mb-0 input-group gap-2">
                                     <div className="form-floating mb-3 input-group mx-0">
                                         <input
                                             type="username"
                                             name="username"
-                                            value={name}
                                             className="form-control rounded-3 input-group"
-                                            placeholder="name@example.com"
-                                            onChange={(e) => setName(e.target.value)}
-                                            
+                                            placeholder="username"
+                                            id="userRef"
+                                            ref={userRef}
                                         />
-                                        <label htmlFor="floatingInput">username</label>
+                                        <label htmlFor="userRef">username</label>
                                     </div>
                                     <div className="form-floating mb-3 input-group mx-0">
                                         <input
                                             type="email"
                                             name="email"
-                                            value={email}
                                             className="form-control rounded-3 input-group"
-                                            placeholder="example.com"
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            
+                                            placeholder="name@example.com"
+                                            id="emailRef"
+                                            ref={emailRef}
                                         />
-
-                                        <label htmlFor="floatingInput">Email </label>
+                                        <label htmlFor="emailRef">Email </label>
                                     </div>
                                 </div>
-
                                 <div className="form-floating mb-3">
                                     <input
                                         type="password"
                                         name="password"
-                                        value={password}
                                         className="form-control rounded-3"
                                         placeholder="Password"
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        
+                                        id="passRef"
+                                        ref={passRef}
                                     />
-                                    <label htmlFor="floatingPassword">Password</label>
+                                    <label htmlFor="passRef">Password</label>
                                 </div>
                                 <button
                                     className="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
@@ -89,7 +89,6 @@ const Register = () => {
                                 <small className="text-body-secondary">
                                     By clicking Sign up, you agree to the terms of use.
                                 </small>
-
                                 <hr className="my-4" />
                                 <h2 className="fs-5 fw-bold mb-3">Or use a third-party</h2>
                                 <button

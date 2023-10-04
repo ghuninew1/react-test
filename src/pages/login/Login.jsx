@@ -1,32 +1,52 @@
-import axios from "axios";
-import { useState } from "react";
+import { useEffect, useRef } from "react";
+import GetData from "../../component/GetData";
+import { useNavigate } from "react-router-dom";
+import { UseUser } from "../../store/DataContext";
 
 const Login = () => {
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
+    const {user} = UseUser();
+    const { userCheck } = UseUser();
+    const userRef = useRef();
+    const passRef = useRef();
+    const navigator = useNavigate();
 
-    const handleCreate = async (e) => {
+    useEffect(() => {
+        if (user) {
+            navigator("/");
+        } else {
+            navigator("/signin");
+        } 
+    }, [user, navigator]);
+
+    const handleCreate = (e) => {
         e.preventDefault();
-        const user = { name, password };
-        const url = import.meta.env.VITE_API_URL;
-        const option = { headers: { "Content-Type": "application/json" } };
+        // const data = new FormData(e.currentTarget);
+        // const userData = { username: data.get("username"), password: data.get("password") };
+        const userData = { username: userRef.current.value, password: passRef.current.value };
         try {
-            await axios.post(`${url}login`, user, option).then((res) => {
-                console.log(res.data);
-                localStorage.setItem("token", JSON.stringify(res.data.token));
-                alert("Login success " + res.data);
-                window.location.href = "/";
+            GetData.signin(userData).then((res) => {
+                if (res.data) {
+                    userCheck(res.data);
+                    localStorage.setItem("token", res.data.tokens.token);
+                    navigator("/");
+                } else {
+                    localStorage.removeItem("token");
+                    userCheck(null);
+                    navigator("/signin");
+                }
             });
         } catch (error) {
-            console.log(error);
+            console.log("error", error);
         }
+
+
         
-    };
+    }
     return (
         <>
-            <div className="modal modal-sheet d-block mt-5 pt-5" tabIndex="-1">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content rounded-4 shadow">
+            <div className=" modal modal-md modal-sheet d-block mt-5 " role="dialog">
+                <div className="modal-dialog" >
+                    <div className="modal-content rounded-4 shadow" >
                         <div className="modal-header p-5 pb-4 border-bottom-0">
                             {/* <h1 className="fw-bold mb-0 fs-2">Log In</h1>
                             <button
@@ -37,27 +57,34 @@ const Login = () => {
                             ></button> */}
                         </div>
 
-                        <div className="modal-body p-5 pt-0 ">
-                            <form className="" action="/login" method="POST" onSubmit={handleCreate}>
+                        <div className="modal-body p-5 pt-0 " >
+                            <form
+                                className="form-signin"
+                                onSubmit={handleCreate}
+                            >
                                 <div className="form-floating mb-3">
                                     <input
                                         type="username"
+                                        name="username"
                                         className="form-control rounded-3"
-                                        id="floatingInput"
                                         placeholder="name@example.com"
-                                        onChange={(e) => setName(e.target.value)}
+                                        id="userRef"
+                                        ref={userRef}
+
                                     />
-                                    <label htmlFor="floatingInput">Email or username</label>
+                                    <label htmlFor="userRef">Email or username</label>
                                 </div>
                                 <div className="form-floating mb-3">
                                     <input
                                         type="password"
+                                        name="password"
                                         className="form-control rounded-3"
-                                        id="floatingPassword"
                                         placeholder="Password"
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        id="passRef"
+                                        ref={passRef}
                                     />
-                                    <label htmlFor="floatingPassword">Password</label>
+                                    <label htmlFor="passRef" >Password</label>
+   
                                 </div>
                                 <button
                                     className="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
@@ -89,7 +116,7 @@ const Login = () => {
                                     </svg>
                                     Sign in with Facebook
                                 </button>
-                                <button
+                                {/* <button
                                     className="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
                                     type="submit"
                                 >
@@ -97,7 +124,7 @@ const Login = () => {
                                         <use xlinkHref="#github" />
                                     </svg>
                                     Sign in with GitHub
-                                </button>
+                                </button> */}
                             </form>
                         </div>
                     </div>

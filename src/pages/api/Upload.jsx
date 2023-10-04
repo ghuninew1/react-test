@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { Progress } from "reactstrap";
 import { Button, Container, Form, InputGroup } from "react-bootstrap";
-import axios from "axios";
+import GetData from "../../component/GetData";
 
 const Upload = () => {
     const [uploadPercentage, setUploadPercentage] = useState(0);
@@ -11,19 +11,19 @@ const Upload = () => {
     const [upload, setUpload] = useState("");
 
     const inputRef = useRef(null);
-    const inputNameRef = useRef(null);
 
     const resetFileInput = () => {
         inputRef.current.value = null;
-        inputNameRef.current.value = null;
         setFiles(null);
         setName("");
+        setUpload("");
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
         setProgressBarVisibility(true);
         const formData = new FormData();
+
         const onUploadProgress = (progressEvent) => {
             const { loaded, total } = progressEvent;
             const percent = Math.floor((loaded * 100) / total);
@@ -32,27 +32,15 @@ const Upload = () => {
         };
 
         formData.append("file", files[0]);
-        formData.append("name", inputNameRef.current.value);
-        const config = {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            onUploadProgress,
-        };
-        const url = import.meta.env.VITE_API_URL + "api/files";
-        axios
-            .post(url, formData, config)
-            .then((res) => {
-                setUpload(res.data.message + " : " + res.data.upload);
-            })
-            .catch((err) => console.log(err));
+        formData.append("name", name);
+        
+        const res = GetData.upload(formData, onUploadProgress);
+        setUpload(res.message + res.duration + "ms");
+        alert(res.message + res.duration + "ms");
 
         setTimeout(() => {
             setProgressBarVisibility(false);
             setUploadPercentage(0);
-            setName("");
-            setUpload("");
-            resetFileInput();
         }, 3000);
     };
 
@@ -85,7 +73,6 @@ const Upload = () => {
                             type="text"
                             placeholder="Name"
                             value={name}
-                            ref={inputNameRef}
                             onChange={(e) => setName(e.target.value)}
                         />
                     </InputGroup>
@@ -93,6 +80,7 @@ const Upload = () => {
                         <InputGroup.Text>Upload</InputGroup.Text>
                         <Form.Control
                             type="file"
+                            name="file"
                             className="form-control"
                             aria-label="Upload"
                             formEncType="multipart/form-data"
@@ -107,7 +95,6 @@ const Upload = () => {
                     <Button variant="outline-success" type="submit">
                         Submit
                     </Button>
-                    <br />
                     <br />
                     <Progress
                         max="100"
