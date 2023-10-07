@@ -1,9 +1,13 @@
-import React from 'react'
+import { useParams } from 'react-router-dom'
 
-const index = () => {
+const Api = () => {
+  const { id } = useParams()
   return (
-    <div>index</div>
+    <div className='container'>
+      <h1>Api</h1>
+      {id}
+      </div>
   )
 }
 
-export default index
+export default Api

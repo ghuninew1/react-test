@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const useAxios = axios.create({
+export const useAxios = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     headers: {
         "Content-type": "application/json",
@@ -35,5 +35,3 @@ const useAxios = axios.create({
 //         return Promise.reject(error);
 //     }
 // );
-
-export default useAxios;

@@ -2,13 +2,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/Root.jsx";
 import ErrorPage from "./routes/ErrorPage.jsx";
 import Login from "./pages/login/Login.jsx";
-import Api from "./pages/api/Api.jsx";
+import About from "./pages/api/About.jsx";
 import Ping from "./pages/ping/Ping.jsx";
 import Upload from "./pages/api/Upload.jsx";
 import Register from "./pages/login/Register.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Profile from "./pages/login/Profile.jsx";
 import Layout from "./component/Layout.jsx";
+import Api from "./pages/api/index.jsx";
 
 const App = () => {
     const router = createBrowserRouter([
@@ -17,7 +18,14 @@ const App = () => {
             element: <Root />,
             errorElement: <ErrorPage />,
             children: [
-                { path: "/", index: true, element: <Layout>Home</Layout> },
+                {
+                    path: "/",
+                    element: (
+                        <Layout>
+                                <h1>Home</h1>
+                        </Layout>
+                    ),
+                },
                 {
                     path: "/api",
                     element: (
@@ -42,27 +50,21 @@ const App = () => {
                         </Layout>
                     ),
                 },
-                {
-                    path: "/signin",
-                    element: (
-                        <Layout login>
-                            <Login />
-                        </Layout>
-                    ),
-                },
-                {
-                    path: "/signup",
-                    element: (
-                        <Layout login>
-                            <Register />
-                        </Layout>
-                    ),
-                },
+                { path: "/signin", element: <Login /> },
+                { path: "/signup", element: <Register /> },
                 {
                     path: "/profile",
                     element: (
                         <Layout>
                             <Profile />
+                        </Layout>
+                    ),
+                },
+                {
+                    path: "/about",
+                    element: (
+                        <Layout>
+                            <About />
                         </Layout>
                     ),
                 },

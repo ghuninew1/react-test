@@ -1,37 +1,26 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import GetData from "../../component/GetData";
 import { useNavigate } from "react-router-dom";
 import { UseUser } from "../../store/DataContext";
 
 const Login = () => {
-    const {user} = UseUser();
-    const { userCheck } = UseUser();
     const userRef = useRef();
     const passRef = useRef();
     const navigator = useNavigate();
-
-    useEffect(() => {
-        if (user) {
-            navigator("/");
-        } else {
-            navigator("/signin");
-        } 
-    }, [user, navigator]);
-
-    const handleCreate = (e) => {
+    const { userCheck } = UseUser();
+    
+    const handleCreate = async (e) => {
         e.preventDefault();
-        // const data = new FormData(e.currentTarget);
-        // const userData = { username: data.get("username"), password: data.get("password") };
+        
         const userData = { username: userRef.current.value, password: passRef.current.value };
         try {
-            GetData.signin(userData).then((res) => {
+            await GetData.signin(userData).then((res) => {
                 if (res.data) {
+                    localStorage.setItem("token", res.data.tokens[0].token)
                     userCheck(res.data);
-                    localStorage.setItem("token", res.data.tokens.token);
                     navigator("/");
                 } else {
                     localStorage.removeItem("token");
-                    userCheck(null);
                     navigator("/signin");
                 }
             });

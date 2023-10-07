@@ -1,30 +1,27 @@
 import { createContext, useState, useContext, useEffect, useMemo, useCallback } from "react";
+import PropTypes from "prop-types";
 
-const UserContext = createContext(null);
-const ThemeContext = createContext("light");
+export const UserContext = createContext(null);
+export const ThemeContext = createContext("light");
+
 export const UseUser = () => {
     const context = useContext(UserContext);
-    if (context === undefined) {
-        throw new Error("useUser must be used within a UserProvider");
+    if (!context) {
+        throw new Error("Something went wrong!");
     }
     return context;
-};
-
+}
 export const UseTheme = () => {
     const context = useContext(ThemeContext);
-    if (context === undefined) {
-        throw new Error("useTheme must be used within a ThemeProvider");
+    if (!context) {
+        throw new Error("Something went wrong!");
     }
     return context;
-};
+}
 
-
-// eslint-disable-next-line react/prop-types
-export default function DataProvider({ children }) {
-    const [users, setUsers] = useState(null);
-    const [themes, setThemes] = useState(localStorage.getItem("theme") || "light");
-    let theme = useMemo(() => themes, [themes]);
-    let user = useMemo(() => users, [users]);
+export const DataProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
     useEffect(() => {
         localStorage.setItem("theme", theme);
@@ -32,17 +29,39 @@ export default function DataProvider({ children }) {
     }, [theme]);
 
     const toggleTheme = useCallback(() => {
-        setThemes((prev) => (prev === "light" ? "dark" : "light"));
-    }, [setThemes]);
+        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    }, []);
 
-    const userCheck = useCallback((data) => {
-        setUsers(data);
-    }, [setUsers]);
+    const themeValue = useMemo(
+        () => ({
+            toggleTheme,
+            theme,
+        }),
+        [toggleTheme, theme]
+    );
+
+    const userCheck = useCallback(
+        (data) => {
+            setUser(data);
+        },
+        [setUser]
+    );
+
+    const userValue = useMemo(
+        () => ({
+            userCheck,
+            user,
+        }),
+        [userCheck, user]
+    );
 
     return (
-        <UserContext.Provider value={{ user, userCheck }}>
-            <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>
+        <UserContext.Provider value={userValue}>
+            <ThemeContext.Provider value={themeValue}>{children}</ThemeContext.Provider>
         </UserContext.Provider>
     );
 }
 
+DataProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};

@@ -1,7 +1,13 @@
+import { Outlet } from "react-router-dom";
+import { useParams } from 'react-router-dom'
 
-const Api = () => {
+const About = () => {
+    const {id} = useParams();
     return (
         <div className="container">
+            <h1>About</h1>
+            <h2>{id}</h2>
+            <Outlet />
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua. Ac turpis egestas integer eget aliquet.
@@ -164,4 +170,4 @@ const Api = () => {
     );
 };
 
-export default Api;
+export default About;
