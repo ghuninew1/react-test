@@ -3,8 +3,8 @@ import { io } from "socket.io-client";
 
 
 export const SocketWs = () => {
-    return io("ws://localhost:3001",{
-            path: "/ws",
+    return io(import.meta.env.VITE_API_WS_URL,{
+            path: import.meta.env.VITE_API_WS_PATH,
             transports: ["websocket", "polling", "webtransport"],
             cors: { origin: "*", credentials: true },
         })
@@ -12,6 +12,11 @@ export const SocketWs = () => {
 
 const UseSocket = () => {
     const socket = useMemo(() => SocketWs(), []);
+    if (socket.connected) {
+        socket.io.engine.on("upgrade", () => socket.connect());
+    } else {
+        socket.io.engine.off("upgrade");
+    }
 
     const emit = useCallback((event, data) => {
         socket.emit(event, data).connect();
@@ -21,20 +26,15 @@ const UseSocket = () => {
         socket.on(event, callback).connect();
     }, [socket]);
 
-    const off = useCallback((event, callback) => {
-        socket.off(event, callback).disconnect();
-    }, [socket]);
-
     const close = useCallback(() => {
         socket.close();
     }, [socket]);
 
-    return {
-        emit,
-        on,
-        off,
-        close,
-    };
-} 
+    const off = useCallback((event, callback) => {
+        socket.off(event, callback);
+    } , [socket]);
+
+    return useMemo(() => ({ emit, on, close, off }), [emit, on, close, off]);
+}
 
 export default UseSocket;

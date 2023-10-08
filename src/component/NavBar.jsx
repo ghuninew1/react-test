@@ -9,7 +9,7 @@ const NavBar = () => {
     const scroll = ScrollListener();
     const [style, setStyle] = useState({});
     const { toggleTheme, theme } = UseTheme();
-    const { links, dropdown, login } = Navlinks();
+    const { links, dropdown, login, api } = Navlinks();
     const [hidden, setHidden] = useState(false);
     const { user } = UseUser();
     const navigate = useNavigate();
@@ -82,11 +82,30 @@ const NavBar = () => {
                                 key={link.name}
                                 to={link.to}
                                 end={link.to === "/" ? true : false}
-                                className={` nav-link  btn btn-sm btn-outline-${theme} mx-2 py-1 px-2`}
+                                className={` nav-link  btn btn-sm btn-outline-${theme} mx-2 py-1 px-2 my-1`}
                             >
                                 {link.name && link.name}
                             </NavLink>
                         ))}
+                    {!hidden && (
+                        <Dropdown className="mx-2">
+                            <Dropdown.Toggle variant="" className="w-100">
+                                Api
+                                </Dropdown.Toggle>
+                            <Dropdown.Menu className="dropdown-menu-end text-center w-100">
+                                {api &&
+                                    api.map((link) => (
+                                        <NavLink
+                                            key={link.name}
+                                            to={link.to}
+                                            className={"dropdown-item text-decoration-none"}
+                                        >
+                                            {link.name}
+                                        </NavLink>
+                                    ))}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    )}
 
                     <NavItem>
                         <button
@@ -94,21 +113,21 @@ const NavBar = () => {
                             onClick={handleThemes}
                         />
                     </NavItem>
-                    
+
                     {hidden ? (
                         login.map((link) => (
                             <NavLink
                                 key={link.name}
                                 to={link.to}
                                 end={link.to === "/" ? true : false}
-                                className={"btn btn-outline-info mx-1 py-1 px-2"}
+                                className={"btn btn-outline-info mx-1 py-1 px-2 my-1"}
                             >
                                 {link.name && link.name}
                             </NavLink>
                         ))
                     ) : (
                         <Dropdown className="mx-2">
-                            <Dropdown.Toggle variant="" className={`rounded-circle`}>
+                            <Dropdown.Toggle variant="" className={`rounded-circle w-100`}>
                                 <img
                                     src="https://avatars.githubusercontent.com/u/77183125?s=200&v=4"
                                     alt="mdo"
@@ -129,7 +148,7 @@ const NavBar = () => {
                                         </NavLink>
                                     ))}
                                 <Dropdown.Item className={"dropdown-item"} onClick={handleLogout}>
-                                    logout
+                                    Logout
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

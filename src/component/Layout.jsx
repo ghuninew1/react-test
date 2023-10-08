@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UseUser } from "../store/DataContext";
-import UseSocket from "./useSocket";
+import UseSocket from "./UseSocket";
 
 const Layout = ({ children }) => {
     const { user, userCheck } = UseUser();
     const token = localStorage.getItem("token");
     const [expires, setExpires] = useState(null);
-    const socket = UseSocket()
-    
+    const socket = UseSocket();
+
     useEffect(() => {
         if (token) {
             socket.emit("authenticate", { token });
@@ -33,14 +33,19 @@ const Layout = ({ children }) => {
                         <Navigate to="/signin" replace={true} />;
                     }
                 });
-
             });
-
         } else {
             userCheck(null);
             socket.close();
             <Navigate to="/signin" replace={true} />;
         }
+
+        return () => {
+            socket.off("connect");
+            socket.off("disconnect");
+            socket.off("authenticated");
+            socket.off("currentusered");
+        };
     }, [token, userCheck]);
 
     // if (expires) {
@@ -59,9 +64,8 @@ const Layout = ({ children }) => {
     if (user && token) {
         if (expires && expires > new Date()) {
             return children;
-        } 
-    } else
-    if (!user || !token) {
+        }
+    } else if (!user || !token) {
         if (!user && !token) {
             return <Navigate to="/signin" replace={true} />;
         }
