@@ -20,7 +20,7 @@ export const UseTheme = () => {
 }
 
 export const DataProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(localStorage.getItem("user") || null);
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
     useEffect(() => {

@@ -1,12 +1,14 @@
 import GetData from "../../component/GetData";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { OnMessage } from "../../component/utils";
 
 const Register = () => {
     const userRef = useRef();
     const passRef = useRef();
     const emailRef = useRef();
     const navigator = useNavigate();
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,32 +19,29 @@ const Register = () => {
         };
         try {
             await GetData.signup(body).then((res) => {
-                if (res.data.user) {
-                    alert("Register success" + res.message);
+                setMessage({ message: "Register Success " + res.data, variant: "success" });
+                setTimeout(() => {
+                    setMessage("");
                     navigator("/signin");
-                } else {
-                    alert("Register failed" + res.message);
-                }
+                }, 1000);
+                
             });
         } catch (error) {
-            console.log("error", error);
+            setMessage({ message: "Register Fail", variant: "danger" });
         }
     };
     return (
         <>
             <div className="modal modal-md modal-sheet d-block mt-5 " role="dialog">
+                {message &&
+                    OnMessage({
+                        message: message.message,
+                        variant: message.variant,
+                        onClose: () => setMessage(""),
+                    })}
+                    
                 <div className="modal-dialog" role="document">
                     <div className="modal-content rounded-4 shadow">
-                        <div className="modal-header p-5 pb-4 border-bottom-0">
-                            <h1 className="fw-bold mb-0 fs-2">Sign up for free</h1>
-                            {/* <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                            ></button> */}
-                        </div>
-
                         <div className="modal-body p-5 pt-2">
                             <form onSubmit={handleSubmit}>
                                 <div className="form-floating mb-0 input-group gap-2">

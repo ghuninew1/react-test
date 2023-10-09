@@ -15,14 +15,14 @@ const Login = () => {
         const userData = { username: userRef.current.value, password: passRef.current.value };
         try {
             await GetData.signin(userData).then((res) => {
-                if (res.data) {
                     localStorage.setItem("token", res.data.tokens[0].token)
+                    localStorage.setItem("user", res.data.username)
                     userCheck(res.data);
+                    alert("Login Success");
+                    
+                    setTimeout(() => {
                     navigator("/");
-                } else {
-                    localStorage.removeItem("token");
-                    navigator("/signin");
-                }
+                } , 1000);
             });
         } catch (error) {
             console.log("error", error);
@@ -36,16 +36,6 @@ const Login = () => {
             <div className=" modal modal-md modal-sheet d-block mt-5 " role="dialog">
                 <div className="modal-dialog" >
                     <div className="modal-content rounded-4 shadow" >
-                        <div className="modal-header p-5 pb-4 border-bottom-0">
-                            {/* <h1 className="fw-bold mb-0 fs-2">Log In</h1>
-                            <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                            ></button> */}
-                        </div>
-
                         <div className="modal-body p-5 pt-0 " >
                             <form
                                 className="form-signin"

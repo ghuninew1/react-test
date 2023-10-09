@@ -11,6 +11,10 @@ import Profile from "./pages/login/Profile.jsx";
 import Layout from "./component/Layout.jsx";
 import Api from "./pages/api/index.jsx";
 import AboutDet from "./pages/about/AboutDet.jsx";
+import CreateApi from "./pages/api/CreateApi.jsx";
+import Edit from "./pages/api/Edit.jsx";
+import GetApi from "./pages/api/GetApi.jsx";
+import Status from "./pages/ping/Status.jsx";
 
 AboutDet;
 
@@ -25,7 +29,7 @@ const App = () => {
                     path: "/",
                     element: (
                         <Layout>
-                            <h1>Home</h1>
+                            <div className="container"><h1>Home</h1></div>
                         </Layout>
                     ),
                 },
@@ -36,23 +40,58 @@ const App = () => {
                             <Api />
                         </Layout>
                     ),
+                    children: [
+                        {
+                            path: "get",
+                            element: (
+                                <Layout>
+                                    <GetApi />
+                                </Layout>
+                            ),
+                        },
+                        {
+                            path: "create",
+                            element: (
+                                <Layout>
+                                    <CreateApi />
+                                </Layout>
+                            ),
+                        },
+                        {
+                            path: "edit/:id",
+                            element: (
+                                <Layout>
+                                    <Edit />
+                                </Layout>
+                            ),
+                        },
+                        {
+                            path: "ping",
+                            element: (
+                                <Layout>
+                                    <Ping />
+                                </Layout>
+                            ),
+                        },
+                        {
+                            path: "status",
+                            element: (
+                                <Layout>
+                                    <Status />
+                                </Layout>
+                            ),
+                        },
+                        {
+                            path: "upload",
+                            element: (
+                                <Layout>
+                                    <Upload />
+                                </Layout>
+                            ),
+                        },
+                    ],
                 },
-                {
-                    path: "/ping",
-                    element: (
-                        <Layout>
-                            <Ping />
-                        </Layout>
-                    ),
-                },
-                {
-                    path: "/upload",
-                    element: (
-                        <Layout>
-                            <Upload />
-                        </Layout>
-                    ),
-                },
+
                 {
                     path: "/profile",
                     element: (
@@ -68,14 +107,24 @@ const App = () => {
                             <About />
                         </Layout>
                     ),
-                },
-                {
-                    path: "/about/det",
-                    element: (
-                        <Layout>
-                            <AboutDet />
-                        </Layout>
-                    ),
+                    children: [
+                        {
+                            path: "",
+                            element: (
+                                <Layout>
+                                    <h1>About</h1>
+                                </Layout>
+                            ),
+                        },
+                        {
+                            path: "det",
+                            element: (
+                                <Layout>
+                                    <AboutDet />
+                                </Layout>
+                            ),
+                        },
+                    ],
                 },
                 { path: "/signin", element: <Login /> },
                 { path: "/signup", element: <Register /> },

@@ -25,12 +25,13 @@ export const useAxios = axios.create({
 //         return response;
 //     },
 //     (error) => {
-//         if (error.response.status === 401 || error.response.status === 403) {
-//             console.log("error", error.response.status);
-//             window.location.href = "/login";
-//         }
+//         // if (error.response.status === 401 || error.response.status === 403) {
+//         //     console.log("error", error.response.status);
+//         //     window.location.href = "/login";
+//         // }
 //         if (error.response.status === 400) {
-//             console.log("error", error.response.status);
+//             alert(error.response.data);
+//             console.log("error", error.response.data);
 //         }
 //         return Promise.reject(error);
 //     }

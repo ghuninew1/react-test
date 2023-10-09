@@ -1,24 +1,24 @@
-
 export default function Navlinks() {
-    const links = [
+    const LinksMain = [
         { to: "/", name: "Home", hidden: false, login: false },
         { to: "/about", name: "About", hidden: false, login: false },
+        { to: "/api", name: "Api", hidden: false, login: false },
     ];
-    const login = [
+    const LoginLink = [
         { to: "/signin", name: "Signin", hidden: false, login: false },
         { to: "/signup", name: "Signup", hidden: false, login: false },
-    ]
-    const dropdown = [
+    ];
+    const DropdownLink = [
         { to: "/profile", name: "Profile", hidden: false, login: true },
         // { to: "/logout", name: "Logout", hidden: false, login: true },
     ];
-    const api = [
-        { to: "/api", name: "Api", hidden: false, login: false },
-        { to: "/ping", name: "Ping", hidden: false, login: false },
-        { to: "/upload", name: "Upload", hidden: false, login: false },
-    
-    ]  
+    const ApiLink = [
+        { to: "/api/get", name: "Get", hidden: false, login: false },
+        { to: "/api/create", name: "Create", hidden: false, login: false },
+        { to: "/api/status", name: "Status", hidden: false, login: false },
+        { to: "/api/ping", name: "Ping", hidden: false, login: false },
+        { to: "/api/upload", name: "Upload", hidden: false, login: false },
+    ];
 
-    return { links, dropdown, api , login };
+    return { LinksMain, LoginLink, DropdownLink, ApiLink };
 }
-

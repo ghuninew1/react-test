@@ -1,14 +1,26 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 
 
 const About = () => {
   return (
-    <div className='container'>
-        <div className='nav nav-item'>
-            <NavLink to='/about' className='nav-link'>About</NavLink>
-            <NavLink to='/about/det' className='nav-link'>About 1</NavLink>
-        </div>
+    <>
+    <ul className="nav nav-tabs my-4">
+        <li className="nav-item">
+            <NavLink className="nav-link " to={"/about"} end>
+            About
+            </NavLink>
+        </li>
+        <li className="nav-item">
+            <NavLink className="nav-link " to={"/about/det"}>
+            About Det
+            </NavLink>
+        </li>
+    </ul>
+    <div>
+        <h2 className="text-center">About</h2>
+        <Outlet />
     </div>
+</>
   )
 }
 

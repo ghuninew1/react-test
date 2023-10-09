@@ -12,11 +12,6 @@ export const SocketWs = () => {
 
 const UseSocket = () => {
     const socket = useMemo(() => SocketWs(), []);
-    if (socket.connected) {
-        socket.io.engine.on("upgrade", () => socket.connect());
-    } else {
-        socket.io.engine.off("upgrade");
-    }
 
     const emit = useCallback((event, data) => {
         socket.emit(event, data).connect();
@@ -34,7 +29,14 @@ const UseSocket = () => {
         socket.off(event, callback);
     } , [socket]);
 
-    return useMemo(() => ({ emit, on, close, off }), [emit, on, close, off]);
+    socket.on("connect", () => {
+        emit,
+        on,
+        close,
+        off
+    });
+
+    return { emit, on, close, off };
 }
 
 export default UseSocket;

@@ -4,14 +4,15 @@ import ScrollListener from "./ScrollListener";
 import { useEffect, useState } from "react";
 import { UseTheme, UseUser } from "../store/DataContext";
 import Navlinks from "./Navlinks";
+import { IsData } from "./utils";
 
 const NavBar = () => {
     const scroll = ScrollListener();
     const [style, setStyle] = useState({});
     const { toggleTheme, theme } = UseTheme();
-    const { links, dropdown, login, api } = Navlinks();
+    const { LinksMain ,DropdownLink, LoginLink } = Navlinks();
     const [hidden, setHidden] = useState(false);
-    const { user } = UseUser();
+    const { user, userCheck } = UseUser();
     const navigate = useNavigate();
 
     const handleThemes = () => {
@@ -19,10 +20,10 @@ const NavBar = () => {
     };
 
     useEffect(() => {
-        if (user === null || (user === undefined && hidden === false)) {
-            setHidden(true);
-        } else {
+        if (!IsData(user)) {
             setHidden(false);
+        } else {
+            setHidden(true);
         }
     }, [user, hidden]);
 
@@ -50,8 +51,13 @@ const NavBar = () => {
     const handleLogout = (e) => {
         e.preventDefault();
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        userCheck(null);
+        
+        setTimeout(() => {
         navigate("/signin");
         window.location.reload();
+        } , 1000);
     };
 
     return (
@@ -76,8 +82,8 @@ const NavBar = () => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className="mx-2" />
                 <Navbar.Collapse className={"justify-content-end mx-2"}>
-                    {links &&
-                        links.map((link) => (
+                    {LinksMain &&
+                        LinksMain.map((link) => (
                             <NavLink
                                 key={link.name}
                                 to={link.to}
@@ -87,35 +93,16 @@ const NavBar = () => {
                                 {link.name && link.name}
                             </NavLink>
                         ))}
-                    {!hidden && (
-                        <Dropdown className="mx-2">
-                            <Dropdown.Toggle variant="" className="w-100">
-                                Api
-                                </Dropdown.Toggle>
-                            <Dropdown.Menu className="dropdown-menu-end text-center w-100">
-                                {api &&
-                                    api.map((link) => (
-                                        <NavLink
-                                            key={link.name}
-                                            to={link.to}
-                                            className={"dropdown-item text-decoration-none"}
-                                        >
-                                            {link.name}
-                                        </NavLink>
-                                    ))}
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    )}
 
-                    <NavItem>
+                    <NavItem className="text-center">
                         <button
                             className={`bg-theme-${theme} rounded-circle mx-2 item-center btn btn-sm btn-outline-${theme}`}
                             onClick={handleThemes}
                         />
                     </NavItem>
 
-                    {hidden ? (
-                        login.map((link) => (
+                    {!hidden ? (
+                        LoginLink.map((link) => (
                             <NavLink
                                 key={link.name}
                                 to={link.to}
@@ -126,7 +113,7 @@ const NavBar = () => {
                             </NavLink>
                         ))
                     ) : (
-                        <Dropdown className="mx-2">
+                        <Dropdown className="mx-0">
                             <Dropdown.Toggle variant="" className={`rounded-circle w-100`}>
                                 <img
                                     src="https://avatars.githubusercontent.com/u/77183125?s=200&v=4"
@@ -137,8 +124,8 @@ const NavBar = () => {
                                 />
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="dropdown-menu-end text-center w-100">
-                                {dropdown &&
-                                    dropdown.map((link) => (
+                                {DropdownLink &&
+                                    DropdownLink.map((link) => (
                                         <NavLink
                                             key={link.name}
                                             to={link.to}
