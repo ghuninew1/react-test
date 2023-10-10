@@ -10,7 +10,7 @@ export default function Status() {
     const [res, setRes] = useState([]);
     // const [check, setCheck] = useState(false);
     const [visible, setVisible] = useState(false);
-    const socket = UseSocket();
+    const socket = UseSocket().socket;
 
 
     const ip1Ref = useRef(null);
@@ -24,7 +24,7 @@ export default function Status() {
         if (IsDataObject(items)) {            
             return Object.entries(items).map(([key, value]) => (
                 <tr key={key}>
-                    <td>{IsNumber(res.responses?.mean * 1000)}</td>
+                    <td>{IsNumber(res.responses?.mean * 100,4 )}</td>
                     <td>{value.host}</td>
                     <td>{value.inputHost}</td>
                     <td>{value.avg}</td>
@@ -58,9 +58,7 @@ export default function Status() {
             nodeData.push({ ip: ip3, int: int });
         }
 
-        console.log("nodeData", nodeData);
-
-        socket.emit("status", nodeData);
+        socket.emit("status", nodeData, "start");
 
         socket.on("nodeStatus", (data) => {
             setRes(data);
@@ -70,14 +68,14 @@ export default function Status() {
             }));
             setVisible(true);
         });
+
     };
     // console.log("datas", datas);
     // console.log("res", res.responses.mean);
 
     const handleClose = () => {
-        socket.close();
-        socket.off();
-        
+        socket.off("nodeStatus")
+        socket.emit("status",{} ,"stop");     
     };
 
     return (

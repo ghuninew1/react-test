@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Table, Button, InputGroup, Form } from "react-bootstrap";
+import { useState, useEffect, useRef } from "react";
+import { Table, Button, InputGroup, Form, ListGroup } from "react-bootstrap";
 import GetData from "../../component/GetData";
 import {
     ToLocalTime,
@@ -16,6 +16,7 @@ const Crud = () => {
     const [message, setMessage] = useState("");
     const { data } = GetData.getAllRe();
     const [isEdit, setIsEdit] = useState(null);
+    const fileRef = useRef(null);
 
     useEffect(() => {
         if (IsData(data)) {
@@ -34,54 +35,128 @@ const Crud = () => {
             setMessage("Delete Cancel");
         }
     };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const body = Object.fromEntries(formData);
+        const res = await GetData.update(isEdit, body);
+        if (res.status === 200) {
+            setIsEdit(null);
+            setMessage("Update Success");
+        } else {
+            setMessage("Update Fail");
+        }
+    };
 
     const dataValue = (items = []) => {
         if (IsDataArray(items)) {
             return items?.map((item) => (
-                <tr key={item._id} className="table-hover">
+                <tr key={item._id} className="table-hover w-100">
                     <td>
-                        {!isEdit ? (
+                        {isEdit !== item._id ? (
                             item.name
                         ) : (
-                            <Form.Control type="text" name="name" placeholder="name" />
+                            <Form.Control
+                                type="text"
+                                name="name"
+                                placeholder="name"
+                                defaultValue={item.name}
+                            />
                         )}
                     </td>
                     <td>
                         {isEdit !== item._id ? (
                             item.detail
                         ) : (
-                            <Form.Control type="text" name="detail" placeholder="detail" />
+                            <Form.Control
+                                type="text"
+                                name="detail"
+                                placeholder="detail"
+                                defaultValue={item.detail}
+                            />
                         )}
                     </td>
                     <td>
                         {isEdit !== item._id ? (
                             item.price
                         ) : (
-                            <Form.Control type="number" name="price" placeholder="price" />
+                            <Form.Control
+                                type="number"
+                                name="price"
+                                placeholder="price"
+                                defaultValue={item.price}
+                            />
                         )}
                     </td>
-                    <td>
+                    <td id="preview-img" className="text-center">
                         {isEdit !== item._id ? (
-                            <Image
-                                src={import.meta.env.VITE_API_URL + "/uploads/" + item?.file}
-                                alt={item.name}
-                            />
+                            <>
+                                <Image
+                                    src={import.meta.env.VITE_API_URL + "/uploads/" + item?.file}
+                                    alt={item.name}
+                                />
+                            </>
                         ) : (
-                            <Form.Control type="file" name="file" placeholder="file" />
+                            <span>
+                                <Form.Control
+                                    type="file"
+                                    name="file"
+                                    placeholder="file"
+                                    ref={fileRef}
+                                />
+                                <Image
+                                    src={
+                                        fileRef.current
+                                            ? fileRef.current.files[0] &&
+                                              URL.createObjectURL(fileRef.current.files[0])
+                                            : import.meta.env.VITE_API_URL +
+                                              "/uploads/" +
+                                              item?.file
+                                    }
+                                    alt={item.name}
+                                />
+                            </span>
                         )}
                     </td>
 
                     <td>{ToLocalTime(item.updatedAt)}</td>
                     <td>{ToLocalTime(item.createdAt)}</td>
-                    <td className="table-responsive">
-                        <InputGroup>
-                            <Button variant="outline-warning" onClick={() => setIsEdit(item._id)}>
-                                Edit
-                            </Button>
-                            <Button variant="outline-danger" onClick={() => handleDelete(item._id)}>
-                                Del
-                            </Button>
-                        </InputGroup>
+                    <td className="text-center btn-btn-group-vertical">
+                        <>
+                            <span className="btn-group">
+                                {isEdit === item._id ? (
+                                    <Button
+                                        className="btn-primary btn-group-sm"
+                                        onClick={handleSubmit}
+                                    >
+                                        Save
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        className="btn-warning btn-group-sm"
+                                        onClick={() => setIsEdit(item._id)}
+                                    >
+                                        Edit
+                                    </Button>
+                                )}
+
+                                {isEdit === item._id ? (
+                                    <Button
+                                        className="btn-secondary btn-group-sm"
+                                        onClick={() => setIsEdit(null)}
+                                    >
+                                        Cancel
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        className="btn-danger btn-group-sm"
+                                        onClick={() => handleDelete(item._id)}
+                                    >
+                                        Del
+                                    </Button>
+                                )}
+                            </span>
+                        </>
                     </td>
                 </tr>
             ));
@@ -90,8 +165,8 @@ const Crud = () => {
     return (
         <div className="container">
             {ShowSuccess(message)}
-            <Button variant="outline-info" className="float-end">
-                <Link to="/api/create" className="text-decoration-none text-info">
+            <Button variant="info" className="float-end">
+                <Link to="/api/create" className="text-decoration-none text-dark">
                     Create
                 </Link>
             </Button>

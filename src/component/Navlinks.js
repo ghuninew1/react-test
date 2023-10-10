@@ -15,6 +15,7 @@ export default function Navlinks() {
     const ApiLink = [
         { to: "/api/get", name: "Get", hidden: false, login: false },
         { to: "/api/create", name: "Create", hidden: false, login: false },
+        { to: "/api/crud", name: "Crud", hidden: false, login: false },
         { to: "/api/status", name: "Status", hidden: false, login: false },
         { to: "/api/ping", name: "Ping", hidden: false, login: false },
         { to: "/api/upload", name: "Upload", hidden: false, login: false },

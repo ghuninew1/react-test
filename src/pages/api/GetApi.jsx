@@ -42,28 +42,31 @@ const GetApi = () => {
                     <td>{item.name}</td>
                     <td>{item.detail}</td>
                     <td>{item.price}</td>
-                    <td>
+                    {item.file && (
+                    <td id="preview-img" className="text-center">
                         <Image
                             src={import.meta.env.VITE_API_URL + "/uploads/" + (item.file ?  item.file : "no-image.png")}
                             alt={item.name}
                         />
                     </td>
+                    )}
                     <td>{ToLocalTime(item.updatedAt)}</td>
                     <td>{ToLocalTime(item.createdAt)}</td>
-                    <td className="table-responsive">
-                        <InputGroup>
-                            <Button variant="outline-warning">
+                    <td className="text-center btn-btn-group-vertical">
+                        <span className="btn-group">
+                            <Button className="btn-warning">
                                 <Link
                                     to={"/api/edit/" + item._id}
-                                    className="text-decoration-none text-warning"
+                                    className="text-decoration-none text-dark"
                                 >
                                     Edit
                                 </Link>
                             </Button>
-                            <Button variant="outline-danger" onClick={() => handleDelete(item._id)}>
+                            <Button className="btn-danger"
+                            onClick={() => handleDelete(item._id)}>
                                 Del
                             </Button>
-                        </InputGroup>
+                        </span>
                     </td>
                 </tr>
             ));

@@ -1,9 +1,8 @@
 import { useState, useRef } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import { Button, Form, InputGroup, ProgressBar } from "react-bootstrap";
 import GetData from "../../component/GetData";
-import { Progress } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { ShowSuccess } from "../../component/utils";
+import { Image, ShowSuccess } from "../../component/utils";
 
 const CreateApi = () => {
     const [check, setCheck] = useState(false);
@@ -99,18 +98,18 @@ const CreateApi = () => {
                                 }
                             }}
                         />
-                        <Button variant="outline-secondary" onClick={resetFileInput} />
+                        <Button variant="secondary" onClick={resetFileInput} />
                     </InputGroup>
                     <InputGroup className="form-group-input mb-3">
                         <Button
-                            variant="outline-warning"
+                            variant="warning"
                             onClick={() => navigate("/api/get")}
                             className="btn-group w-50 form-control"
                         >
                             Back
                         </Button>
                         <Button
-                            variant="outline-success"
+                            variant="success"
                             type="submit"
                             className="btn-group w-50 form-control d-flex justify-content-end"
                         >
@@ -119,19 +118,18 @@ const CreateApi = () => {
                     </InputGroup>
                 </Form.Group>
 
-                <Form.Group className="form-group form-text">
+                <Form.Group className="form-group form-text text-center" id="preview-img">
                     {check && (
-                        <img
+                        <Image
                             src={URL.createObjectURL(fileRef.current.files[0])}
                             alt="preview"
-                            style={{ width: "100px", height: "auto" }}
                         />
                     )}
 
                     {check && (
                         <>
                             <Form.Label>{upload}</Form.Label>
-                            <Progress
+                            <ProgressBar
                                 max="100"
                                 value={uploadPercentage}
                                 variant="success"
@@ -140,7 +138,7 @@ const CreateApi = () => {
                                 className="mt-2"
                             >
                                 {uploadPercentage} %
-                            </Progress>
+                            </ProgressBar>
                         </>
                     )}
                 </Form.Group>

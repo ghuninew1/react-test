@@ -1,12 +1,17 @@
 import { Alert } from "react-bootstrap";
 
+export const ToLocalDate = (date) => {
+    const d = new Date(date);
+    return d.toLocaleDateString("th-TH");
+};
+
 export const ToLocalTime = (time) => {
     const date = new Date(time);
     return date.toLocaleString("th-TH");
 };
 
 export const IsData = (data) => {
-    if (data !== null && data !== undefined && data !== "") return data;
+    if (data !== null && data !== undefined && data) return data;
 };
 
 export const IsDataArray = (data) => {
@@ -26,9 +31,9 @@ export const IsHidden = (data) => {
     if (data === null || data === undefined || data === "") return data ? true : false;
 };
 export const OnMessage = (message) => {
-    setTimeout(() => {
-        message.onClose();
-    } , 1000);
+    // setTimeout(() => {
+    //     message.onClose();
+    // } , 1000);
     return (
         <Alert variant={message.variant} onClose={message.onClose} dismissible>
             {message.message}
@@ -57,25 +62,29 @@ export const Image = ({ src, alt, width, maxHeight }) => {
             img.remove();
         };
 
-        document.body.appendChild(img);
-
+        document.getElementById("preview-img").appendChild(img);
         return false;
-    }
+    };
 
     return (
         <img
-            src={src? src:"/images/404.png"}
-            alt={alt ? alt:"404"}
-            style={{ width: width ? width : "auto", maxHeight: maxHeight ? maxHeight : "100px", cursor: "zoom-in" }}
+            src={src ? src : "/images/404.png"}
+            alt={alt ? alt : "404"}
+            style={{
+                width: width ? width : "auto",
+                maxHeight: maxHeight ? maxHeight : "100px",
+                cursor: "zoom-in",
+            }}
             className="img-fluid transition"
-            onClick={(e) => showImage(e)} 
+            onClick={(e) => showImage(e)}
         />
     );
-}
+};
 
-export const IsNumber = (data,tf) => {
-    if (data !== null && data !== undefined && data !== "" && !isNaN(data)) return Number(data && data).toFixed(tf ?  tf : 3);
-}
+export const IsNumber = (data, tf) => {
+    if (data !== null && data !== undefined && data !== "" && !isNaN(data))
+        return Number(data && data).toFixed(tf ? tf : 3);
+};
 
 export const IsConfirm = (message) => {
     const confirm = window.confirm("Are you sure?");
@@ -94,7 +103,7 @@ export const ShowEerror = (error) => {
             </Alert>
         );
     }
-}
+};
 
 export const ShowLoading = (loading) => {
     if (loading) {
@@ -104,7 +113,7 @@ export const ShowLoading = (loading) => {
             </Alert>
         );
     }
-}
+};
 
 export const ShowSuccess = (success) => {
     if (success) {
@@ -114,4 +123,4 @@ export const ShowSuccess = (success) => {
             </Alert>
         );
     }
-}
+};

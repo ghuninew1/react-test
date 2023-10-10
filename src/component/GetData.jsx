@@ -1,5 +1,5 @@
-import { useAxios } from "./useAxios";
-import UseSwr from "./UseSwr";
+import { useAxios } from "./useAxios.js";
+import UseSwr from "./UseSwr.js";
 
 const url = import.meta.env.VITE_API_URL;
 

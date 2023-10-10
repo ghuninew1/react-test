@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import { Button, Form, InputGroup, ProgressBar } from "react-bootstrap";
 import GetData from "../../component/GetData";
-import { Progress } from "reactstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { Image, ShowSuccess } from "../../component/utils";
 
@@ -68,8 +67,6 @@ const Edit = () => {
             navigate("/api/get");
         }, 1000);
     };
-
-    console.log("data", data);
 
     return (
         <div className="container">
@@ -138,22 +135,22 @@ const Edit = () => {
                         <Button variant="outline-secondary" onClick={resetFileInput} />
                     </InputGroup>
                     <InputGroup className="form-group-input mb-3">
-                        <Button variant="outline-warning" onClick={() => navigate("/api/get")} className="btn-group w-50 form-control">
+                        <Button variant="warning" onClick={() => navigate("/api/get")} className="btn-group w-50 form-control">
                             Back
                         </Button>
-                        <Button variant="outline-success" 
+                        <Button variant="success" 
                         type="submit" className="btn-group w-50 form-control d-flex justify-content-end">
                             Submit
                         </Button>
                     </InputGroup>
                 </Form.Group>
 
-                <Form.Group className="form-group form-text">
+                {data.file && (
+                <Form.Group  id="preview-img" className="form-group form-text text-center">
                     {check ? (
-                        <img
+                        <Image
                             src={URL.createObjectURL(fileRef.current.files[0])}
                             alt="preview"
-                            style={{ width: "100px", height: "auto" }}
                         />
                     ) : (
                         <Image
@@ -165,7 +162,7 @@ const Edit = () => {
                     {check && (
                         <>
                             <Form.Label>{upload}</Form.Label>
-                            <Progress
+                            <ProgressBar
                                 max="100"
                                 value={uploadPercentage}
                                 variant="success"
@@ -174,10 +171,11 @@ const Edit = () => {
                                 className="mt-2"
                             >
                                 {uploadPercentage} %
-                            </Progress>
+                            </ProgressBar>
                         </>
                     )}
                 </Form.Group>
+                )}
             </Form>
         </div>
     );

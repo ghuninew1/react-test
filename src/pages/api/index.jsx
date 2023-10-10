@@ -1,11 +1,11 @@
 import { NavLink, Outlet } from "react-router-dom";
-import Navlink from "../../component/Navlinks"
+import Navlink from "../../component/Navlinks.js"
 const Api = () => {
     const { ApiLink } = Navlink();
     return (
         <>
             <ul className="nav nav-tabs my-4">
-            {ApiLink.length > 0 &&
+            {ApiLink &&
                         ApiLink.map((link) => (
                             <NavLink
                                 key={link.name}

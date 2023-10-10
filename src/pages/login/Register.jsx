@@ -1,14 +1,15 @@
 import GetData from "../../component/GetData";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OnMessage } from "../../component/utils";
+import { IsData } from "../../component/utils";
+import { Link } from "react-router-dom";
 
 const Register = () => {
     const userRef = useRef();
     const passRef = useRef();
+    const passConfirmRef = useRef();
     const emailRef = useRef();
     const navigator = useNavigate();
-    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,32 +20,21 @@ const Register = () => {
         };
         try {
             await GetData.signup(body).then((res) => {
-                setMessage({ message: "Register Success " + res.data, variant: "success" });
-                setTimeout(() => {
-                    setMessage("");
-                    navigator("/signin");
-                }, 1000);
-                
+                alert("Register Success " + res.data.username);
+                navigator("/signin");
             });
         } catch (error) {
-            setMessage({ message: "Register Fail", variant: "danger" });
+            alert(error.response.data.message);
         }
     };
     return (
         <>
-            <div className="modal modal-md modal-sheet d-block mt-5 " role="dialog">
-                {message &&
-                    OnMessage({
-                        message: message.message,
-                        variant: message.variant,
-                        onClose: () => setMessage(""),
-                    })}
-                    
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content rounded-4 shadow">
-                        <div className="modal-body p-5 pt-2">
-                            <form onSubmit={handleSubmit}>
-                                <div className="form-floating mb-0 input-group gap-2">
+            <div className="container-fluid px-4 py-5 mx-auto">
+                <div className="row justify-content-center">
+                    <div className="col-md-6 col-sm-8 col-10">
+                        <div className="card shadow-sm p-3 bg-dark-subtle ">
+                            <form onSubmit={handleSubmit} className="card-body">
+                                <div className="form-floating mb-0 input-group gap-1">
                                     <div className="form-floating mb-3 input-group mx-0">
                                         <input
                                             type="username"
@@ -68,30 +58,50 @@ const Register = () => {
                                         <label htmlFor="emailRef">Email </label>
                                     </div>
                                 </div>
-                                <div className="form-floating mb-3">
+                                <div className="input-group mb-3 gap-1">
                                     <input
                                         type="password"
                                         name="password"
-                                        className="form-control rounded-3"
+                                        className="form-control rounded-3 input-group py-2"
                                         placeholder="Password"
-                                        id="passRef"
+                                        id="pass"
                                         ref={passRef}
                                     />
-                                    <label htmlFor="passRef">Password</label>
+                                    <input
+                                        type="password"
+                                        name="confirm"
+                                        className="form-control rounded-3 input-group py-2"
+                                        placeholder="Password Confirm"
+                                        id="confirm"
+                                        onInput={(e) => {
+                                            if (e.target.value !== passRef.current.value) {
+                                                e.target.setCustomValidity(
+                                                    "Password does not match"
+                                                );
+                                            } else {
+                                                e.target.setCustomValidity("");
+                                            }
+                                        }}
+                                        checked={passConfirmRef.current?.value}
+                                        ref={passConfirmRef}
+                                    />
                                 </div>
                                 <button
-                                    className="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
+                                    className="w-100 mb-2 btn btn-lg rounded-3 btn-success"
                                     type="submit"
                                 >
                                     Sign up
                                 </button>
                                 <small className="text-body-secondary">
                                     By clicking Sign up, you agree to the terms of use.
+                                    <Link to="/signin" className="text-decoration-none">
+                                        Sign in
+                                    </Link>
                                 </small>
                                 <hr className="my-4" />
                                 <h2 className="fs-5 fw-bold mb-3">Or use a third-party</h2>
                                 <button
-                                    className="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
+                                    className="w-100 py-2 mb-2 btn btn-secondary rounded-3"
                                     type="submit"
                                 >
                                     <svg className="bi me-1" width="16" height="16">

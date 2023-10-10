@@ -15,8 +15,7 @@ import CreateApi from "./pages/api/CreateApi.jsx";
 import Edit from "./pages/api/Edit.jsx";
 import GetApi from "./pages/api/GetApi.jsx";
 import Status from "./pages/ping/Status.jsx";
-
-AboutDet;
+import Crud from "./pages/api/Crud.jsx";
 
 const App = () => {
     const router = createBrowserRouter([
@@ -29,7 +28,9 @@ const App = () => {
                     path: "/",
                     element: (
                         <Layout>
-                            <div className="container"><h1>Home</h1></div>
+                            <div className="container">
+                                <h1>Home</h1>
+                            </div>
                         </Layout>
                     ),
                 },
@@ -43,51 +44,31 @@ const App = () => {
                     children: [
                         {
                             path: "get",
-                            element: (
-                                <Layout>
-                                    <GetApi />
-                                </Layout>
-                            ),
+                            element: <GetApi />,
                         },
                         {
                             path: "create",
-                            element: (
-                                <Layout>
-                                    <CreateApi />
-                                </Layout>
-                            ),
+                            element: <CreateApi />,
+                        },
+                        {
+                            path: "crud",
+                            element: <Crud />,
                         },
                         {
                             path: "edit/:id",
-                            element: (
-                                <Layout>
-                                    <Edit />
-                                </Layout>
-                            ),
+                            element: <Edit />,
                         },
                         {
                             path: "ping",
-                            element: (
-                                <Layout>
-                                    <Ping />
-                                </Layout>
-                            ),
+                            element: <Ping />,
                         },
                         {
                             path: "status",
-                            element: (
-                                <Layout>
-                                    <Status />
-                                </Layout>
-                            ),
+                            element: <Status />,
                         },
                         {
                             path: "upload",
-                            element: (
-                                <Layout>
-                                    <Upload />
-                                </Layout>
-                            ),
+                            element: <Upload />,
                         },
                     ],
                 },
@@ -110,19 +91,11 @@ const App = () => {
                     children: [
                         {
                             path: "",
-                            element: (
-                                <Layout>
-                                    <h1>About</h1>
-                                </Layout>
-                            ),
+                            element: <h1>About</h1>,
                         },
                         {
                             path: "det",
-                            element: (
-                                <Layout>
-                                    <AboutDet />
-                                </Layout>
-                            ),
+                            element: <AboutDet />,
                         },
                     ],
                 },

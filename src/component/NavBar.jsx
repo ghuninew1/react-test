@@ -1,9 +1,9 @@
 import { Navbar, Dropdown, NavItem } from "react-bootstrap";
 import { NavLink, useNavigate, Link } from "react-router-dom";
-import ScrollListener from "./ScrollListener";
+import ScrollListener from "./ScrollListener.js";
 import { useEffect, useState } from "react";
 import { UseTheme, UseUser } from "../store/DataContext";
-import Navlinks from "./Navlinks";
+import Navlinks from "./Navlinks.js";
 import { IsData } from "./utils";
 
 const NavBar = () => {
@@ -18,6 +18,7 @@ const NavBar = () => {
     const handleThemes = () => {
         toggleTheme();
     };
+
 
     useEffect(() => {
         if (!IsData(user)) {
@@ -61,7 +62,7 @@ const NavBar = () => {
     };
 
     return (
-        <div style={{ zIndex: 1000 }}>
+        <>
             <Navbar
                 expand="lg"
                 style={style}
@@ -142,7 +143,7 @@ const NavBar = () => {
                     )}
                 </Navbar.Collapse>
             </Navbar>
-        </div>
+        </>
     );
 };
 

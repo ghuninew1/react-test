@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
-import { Progress } from "reactstrap";
-import { Button, Container, Form, InputGroup } from "react-bootstrap";
+import { Button, Container, Form, InputGroup, ProgressBar } from "react-bootstrap";
 import GetData from "../../component/GetData";
 
 const Upload = () => {
@@ -96,7 +95,7 @@ const Upload = () => {
                         Submit
                     </Button>
                     <br />
-                    <Progress
+                    <ProgressBar
                         max="100"
                         animated
                         value={uploadPercentage}
@@ -104,7 +103,7 @@ const Upload = () => {
                         hidden={!showProgressBar}
                     >
                         {showProgressBar && uploadPercentage}%
-                    </Progress>
+                    </ProgressBar>
                 </Form.Group>
             </Form>
         </Container>
