@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Button, Form, InputGroup, ProgressBar } from "react-bootstrap";
+import { Button, Container, Form, InputGroup, ProgressBar } from "react-bootstrap";
 import GetData from "../../component/GetData";
 import { useNavigate, useParams } from "react-router-dom";
 import { Image, ShowSuccess } from "../../component/utils";
@@ -69,7 +69,7 @@ const Edit = () => {
     };
 
     return (
-        <div className="container">
+        <Container>
             {ShowSuccess(upload)}
             <Form
                 onSubmit={hendleSubmit}
@@ -100,7 +100,7 @@ const Edit = () => {
                     <InputGroup className="form-group-input mb-3">
                         <InputGroup.Text>price</InputGroup.Text>
                         <Form.Control
-                            type="text"
+                            type="number"
                             name="price"
                             placeholder="price"
                             ref={priceRef}
@@ -160,24 +160,21 @@ const Edit = () => {
                     )}
 
                     {check && (
-                        <>
+                            <div>
                             <Form.Label>{upload}</Form.Label>
                             <ProgressBar
                                 max="100"
-                                value={uploadPercentage}
-                                variant="success"
-                                color="danger"
+                                now={uploadPercentage}
                                 hidden={!check}
-                                className="mt-2"
-                            >
-                                {uploadPercentage} %
-                            </ProgressBar>
-                        </>
+                                label={`${uploadPercentage}%`}
+                                variant="success"
+                            />
+                        </div>
                     )}
                 </Form.Group>
                 )}
             </Form>
-        </div>
+        </Container>
     );
 };
 

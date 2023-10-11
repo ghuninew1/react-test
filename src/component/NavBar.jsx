@@ -1,14 +1,11 @@
 import { Navbar, Dropdown, NavItem } from "react-bootstrap";
 import { NavLink, useNavigate, Link } from "react-router-dom";
-import ScrollListener from "./ScrollListener.js";
 import { useEffect, useState } from "react";
 import { UseTheme, UseUser } from "../store/DataContext";
 import Navlinks from "./Navlinks.js";
 import { IsData } from "./utils";
 
 const NavBar = () => {
-    const scroll = ScrollListener();
-    const [style, setStyle] = useState({});
     const { toggleTheme, theme } = UseTheme();
     const { LinksMain ,DropdownLink, LoginLink } = Navlinks();
     const [hidden, setHidden] = useState(false);
@@ -28,26 +25,7 @@ const NavBar = () => {
         }
     }, [user, hidden]);
 
-    useEffect(() => {
-        if (scroll.lastY === scroll.y) {
-            return;
-        }
-        if (scroll.y - scroll.lastY > 0) {
-            if (scroll.y > 100) {
-                setStyle({
-                    transform: "translateY(-100%)",
-                });
-            } else {
-                setStyle({
-                    transform: "translateY(0%)",
-                });
-            }
-        } else {
-            setStyle({
-                transform: "translateY(0%)",
-            });
-        }
-    }, [scroll.lastY, scroll.y]);
+
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -64,11 +42,8 @@ const NavBar = () => {
     return (
         <>
             <Navbar
-                expand="lg"
-                style={style}
-                bg=""
-                variant=""
-                className={`border-bottom fixed-top ${theme}`}
+                expand="md"
+                className={`border-bottom ${theme}`}
             >
                 <Navbar.Brand className="mx-2">
                     <Link to="/" className={`rounded-circle`}>

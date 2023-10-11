@@ -46,10 +46,13 @@ const findPingRe = (ip) => UseSwr(`${url}/ping?ip=${ip}`);
 const signin = async (data) => await useAxios.post("/auth/signin", data,{});
 const signup = async (data) => await useAxios.post("/auth/signup", data,{});
 
-const users = async ({ token }) => {
-    useAxios.defaults.headers.common["authtoken"] = token;
-    return await useAxios.post("/auth/users");
-};
+const users = async ({ token }) => await useAxios.post("/auth/users",{},{
+    headers: {
+        authtoken: token,
+        Accept: "application/json",
+    },
+})    
+
 
 const GetData = {
     getAll,

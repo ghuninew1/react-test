@@ -10,29 +10,31 @@ export default function Status() {
     const [res, setRes] = useState([]);
     // const [check, setCheck] = useState(false);
     const [visible, setVisible] = useState(false);
-    const socket = UseSocket().socket;
-
-
+    const {socket} = UseSocket();
+    
     const ip1Ref = useRef(null);
     const ip2Ref = useRef(null);
     const ip3Ref = useRef(null);
     const intRef = useRef(null);
 
-    const resetFileInput = () => {};
+    const resetFileInput = () => {
+        ip1Ref.current.value = "";
+        ip2Ref.current.value = "";
+        ip3Ref.current.value = "";
+        intRef.current.value = "";
+    };
 
     const dataResult = (items = []) => {
-        if (IsDataObject(items)) {            
+        if (IsDataObject(items)) {
             return Object.entries(items).map(([key, value]) => (
                 <tr key={key}>
-                    <td>{IsNumber(res.responses?.mean * 100,4 )}</td>
-                    <td>{value.host}</td>
+                    <td>{IsNumber(res.responses?.mean , 6)}</td>
+                    <td>{value.numeric_host}</td>
                     <td>{value.inputHost}</td>
                     <td>{value.avg}</td>
                     <td>{value.max}</td>
                     <td>{value.min}</td>
-                    <td>{value.time}</td>
-                    <td>{value.packetLoss}</td>
-
+                    <td>{IsNumber(value.time, 2)}</td>
                 </tr>
             ));
         } else return null;
@@ -40,7 +42,7 @@ export default function Status() {
 
     // const ip = inputRef.current.value;
 
-    const hendleSubmit = async (e) => {
+    const HendleSubmit = (e) => {
         e.preventDefault();
         const ip = ip1Ref.current.value;
         const ip2 = ip2Ref.current.value;
@@ -57,8 +59,9 @@ export default function Status() {
         if (ip3) {
             nodeData.push({ ip: ip3, int: int });
         }
+        socket.connect();
 
-        socket.emit("status", nodeData, "start");
+        socket.emit("status", nodeData);
 
         socket.on("nodeStatus", (data) => {
             setRes(data);
@@ -68,34 +71,28 @@ export default function Status() {
             }));
             setVisible(true);
         });
-
     };
-    // console.log("datas", datas);
-    // console.log("res", res.responses.mean);
 
     const handleClose = () => {
-        socket.off("nodeStatus")
-        socket.emit("status",{} ,"stop");     
+        socket.close();
     };
 
     return (
         <Container>
-            <Form
-                onSubmit={hendleSubmit}
-                className="d-flex flex-column justify-content-center align-items-center"
-            >
-                <Form.Group className="mb-3">
-                    <InputGroup className="mb-3">
-                        <InputGroupText>IP</InputGroupText>
-                            <Form.Control
-                                type="number"
-                                name="int"
-                                placeholder="Interval"
-                                className="form-control form-switch mx-2"
-                                size="sm"
-                                aria-label="Interval"
-                                ref={intRef}
-                            />
+            <Form onSubmit={HendleSubmit} className="mt-4">
+                <Form.Group className="input-group justify-content-center align-items-center">
+                    <InputGroup className="input-group-sm">
+                        <InputGroupText >
+                        IP</InputGroupText>
+                        <Form.Control
+                            type="number"
+                            name="int"
+                            placeholder="Interval"
+                            className="form-group"
+                            size="sm"
+                            aria-label="Interval"
+                            ref={intRef}
+                        />
 
                         <Form.Control
                             type="text"
@@ -118,42 +115,44 @@ export default function Status() {
                             aria-label="Ip3"
                             ref={ip3Ref}
                         />
-                        <Button
-                            variant="outline-secondary"
-                            onClick={resetFileInput}
-                            className="btn-sm"
-                        />
 
-                        <Button variant="outline-info" type="submit" className="btn-sm">
-                            Submit
-                        </Button>
-                        <Button variant="outline-danger" 
-                        className="btn-sm" onClick={handleClose}>
-                            Close
-                        </Button>
+                        <Form.Group className="btn-group btn-group-sm">
+                            <Button
+                                variant="outline-secondary"
+                                onClick={resetFileInput}
+                                className="btn-group"
+                            />
+                            <Button variant="outline-info" type="submit" className="btn-group">
+                                Submit
+                            </Button>
+                            <Button
+                                variant="outline-danger"
+                                className="btn-group"
+                                onClick={handleClose}
+                            >
+                                Close
+                            </Button>
+                        </Form.Group>
                     </InputGroup>
                 </Form.Group>
-
-                <Form.Group className="ms-3 mb-3 input-group justify-content-center align-items-center">
-                    {/* <Form.Check type="checkbox" onChange={() => setCheck(!check)} /> */}
-                </Form.Group>
             </Form>
-            <Table striped bordered hover variant="" hidden={!visible} className="table-responsive">
+            <Table striped bordered hover variant="" hidden={!visible} className="table-sm mt-4">
                 <thead>
                     {datas && (
-                        <tr>
-                            <th>Res</th>
+                        <tr className="text-center align-middle">
+                            <th>Res (ms)</th>
                             <th>Host</th>
                             <th>InputHost</th>
-                            <th>Avg</th>
-                            <th>Max</th>
-                            <th>Min</th>
-                            <th>Time</th>
-                            <th>PacketLoss</th>
+                            <th>Avg (ms)</th>
+                            <th>Max (ms)</th>
+                            <th>Min (ms)</th>
+                            <th>Time (ms)</th>
                         </tr>
                     )}
                 </thead>
-                <tbody>{dataResult(datas)}</tbody>
+                <tbody className="text-center align-middle">
+                    {dataResult(datas)}
+                    </tbody>
             </Table>
         </Container>
     );

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Button, Form, InputGroup, ProgressBar } from "react-bootstrap";
+import { Button, Container, Form, InputGroup, ProgressBar } from "react-bootstrap";
 import GetData from "../../component/GetData";
 import { useNavigate } from "react-router-dom";
 import { Image, ShowSuccess } from "../../component/utils";
@@ -58,7 +58,7 @@ const CreateApi = () => {
     };
 
     return (
-        <div className="container">
+        <Container>
             {ShowSuccess(upload)}
             <Form
                 onSubmit={hendleSubmit}
@@ -81,7 +81,12 @@ const CreateApi = () => {
                     </InputGroup>
                     <InputGroup className="form-group-input mb-3">
                         <InputGroup.Text>price</InputGroup.Text>
-                        <Form.Control type="text" name="price" placeholder="price" ref={priceRef} />
+                        <Form.Control
+                            type="number"
+                            name="price"
+                            placeholder="price"
+                            ref={priceRef}
+                        />
                     </InputGroup>
                     <InputGroup className="form-group-input mb-3">
                         <InputGroup.Text>File</InputGroup.Text>
@@ -120,30 +125,24 @@ const CreateApi = () => {
 
                 <Form.Group className="form-group form-text text-center" id="preview-img">
                     {check && (
-                        <Image
-                            src={URL.createObjectURL(fileRef.current.files[0])}
-                            alt="preview"
-                        />
+                        <Image src={URL.createObjectURL(fileRef.current.files[0])} alt="preview" />
                     )}
 
                     {check && (
-                        <>
+                        <div>
                             <Form.Label>{upload}</Form.Label>
                             <ProgressBar
                                 max="100"
-                                value={uploadPercentage}
-                                variant="success"
-                                color="danger"
+                                now={uploadPercentage}
                                 hidden={!check}
-                                className="mt-2"
-                            >
-                                {uploadPercentage} %
-                            </ProgressBar>
-                        </>
+                                label={`${uploadPercentage}%`}
+                                variant="success"
+                            />
+                        </div>
                     )}
                 </Form.Group>
             </Form>
-        </div>
+        </Container>
     );
 };
 

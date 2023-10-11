@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Table, Button, InputGroup } from "react-bootstrap";
+import { Table, Button, Container } from "react-bootstrap";
 import GetData from "../../component/GetData";
 import {
     ToLocalTime,
@@ -37,8 +37,9 @@ const GetApi = () => {
 
     const dataValue = (items = []) => {
         if (IsDataArray(items) && items.length > 0) {
-            return items?.map((item) => (
-                <tr key={item._id} className="table-hover">
+            return items?.map((item,idx) => (
+                <tr key={item._id} className="align-middle">
+                    <td>{idx +1}</td>
                     <td>{item.name}</td>
                     <td>{item.detail}</td>
                     <td>{item.price}</td>
@@ -73,7 +74,7 @@ const GetApi = () => {
         }
     };
     return (
-        <div className="container">
+        <Container>
             {ShowSuccess(message)}
             <Button variant="outline-info" className="float-end">
                 <Link to="/api/create" className="text-decoration-none text-info">
@@ -84,6 +85,7 @@ const GetApi = () => {
                 <thead>
                     {datas && (
                         <tr>
+                            <th>#</th>
                             <th>name</th>
                             <th>detail</th>
                             <th>price</th>
@@ -104,7 +106,7 @@ const GetApi = () => {
                     )}
                 </tbody>
             </Table>
-        </div>
+        </Container>
     );
 };
 

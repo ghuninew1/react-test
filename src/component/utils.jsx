@@ -1,4 +1,5 @@
 import { Alert } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export const ToLocalDate = (date) => {
     const d = new Date(date);
@@ -46,12 +47,12 @@ export const Image = ({ src, alt, width, maxHeight }) => {
         e.preventDefault();
         const img = document.createElement("img");
         img.src = e.target.src;
-        img.style.maxWidth = "90%";
-        img.style.maxHeight = "90%";
+        img.style.maxWidth = "80%";
+        img.style.maxHeight = "80%";
         img.style.position = "fixed";
         img.style.top = 0;
         img.style.left = 0;
-        img.style.marginLeft = "15%";
+        img.style.marginLeft = "10%";
         img.style.marginTop = "5%";
         img.style.zIndex = 1000;
         img.style.backgroundColor = "rgba(0,0,0,0.5)";
@@ -72,7 +73,7 @@ export const Image = ({ src, alt, width, maxHeight }) => {
             alt={alt ? alt : "404"}
             style={{
                 width: width ? width : "auto",
-                maxHeight: maxHeight ? maxHeight : "100px",
+                maxHeight: maxHeight ? maxHeight : "40px",
                 cursor: "zoom-in",
             }}
             className="img-fluid transition"
@@ -123,4 +124,17 @@ export const ShowSuccess = (success) => {
             </Alert>
         );
     }
+};
+export const ResTime = (start) => {
+    if (!start) return performance.now();
+    const end = performance.now() - start;
+    const responseTime = end.toFixed(2);
+    return responseTime;
+};
+
+Image.propTypes = {
+    src: PropTypes.string,
+    alt: PropTypes.string,
+    width: PropTypes.string,
+    maxHeight: PropTypes.string,
 };

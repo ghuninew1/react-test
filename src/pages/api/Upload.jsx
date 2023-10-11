@@ -32,10 +32,9 @@ const Upload = () => {
 
         formData.append("file", files[0]);
         formData.append("name", name);
-        
+
         const res = GetData.upload(formData, onUploadProgress);
         setUpload(res.message + res.duration + "ms");
-        alert(res.message + res.duration + "ms");
 
         setTimeout(() => {
             setProgressBarVisibility(false);
@@ -97,13 +96,11 @@ const Upload = () => {
                     <br />
                     <ProgressBar
                         max="100"
-                        animated
-                        value={uploadPercentage}
-                        color="danger"
+                        now={uploadPercentage}
                         hidden={!showProgressBar}
-                    >
-                        {showProgressBar && uploadPercentage}%
-                    </ProgressBar>
+                        label={`${uploadPercentage}%`}
+                        variant="success"
+                    />
                 </Form.Group>
             </Form>
         </Container>
