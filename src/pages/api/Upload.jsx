@@ -10,6 +10,7 @@ const Upload = () => {
     const [upload, setUpload] = useState("");
 
     const inputRef = useRef(null);
+    const {uploadData} = GetData();
 
     const resetFileInput = () => {
         inputRef.current.value = null;
@@ -33,7 +34,7 @@ const Upload = () => {
         formData.append("file", files[0]);
         formData.append("name", name);
 
-        const res = GetData.upload(formData, onUploadProgress);
+        const res = uploadData(formData, onUploadProgress);
         setUpload(res.message + res.duration + "ms");
 
         setTimeout(() => {

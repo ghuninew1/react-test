@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
     const users = localStorage.getItem("user");
     const [expires, setExpires] = useState(null);
     // const [connect, setConnect] = useState(false);
-
+    const { curenUser } = GetData();
     useEffect(() => {
         return () => {
             if (IsData(users) && IsData(token)) {
@@ -21,10 +21,10 @@ const Layout = ({ children }) => {
             }
         };
     }, [token, users]);
-
+    
     const isConnect = async () => {
         if (IsData(users) && IsData(token)) {
-                const res = await GetData.users({ token });
+                const res = await curenUser({ token });
                 const tokensRes = res.data.tokens;
                 if (tokensRes[0]?.token === token && new Date(tokensRes[0].expires) > new Date()) {
                     userCheck(res.data);

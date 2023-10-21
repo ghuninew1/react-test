@@ -13,6 +13,7 @@ const CreateApi = () => {
     const [uploadPercentage, setUploadPercentage] = useState(0);
     const [upload, setUpload] = useState("");
     const navigate = useNavigate();
+    const {createData} = GetData();
 
     const resetFileInput = (e) => {
         e.preventDefault();
@@ -46,7 +47,7 @@ const CreateApi = () => {
         };
 
         setCheck(true);
-        const res = GetData.create(fromData, onUploadProgress);
+        const res = createData(fromData, onUploadProgress);
         res.then((res) => {
             console.log("res", res);
         });

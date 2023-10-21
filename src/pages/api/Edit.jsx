@@ -15,10 +15,17 @@ const Edit = () => {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const { id } = useParams();
-
+    const { getOne, updateData } = GetData()
+    
     useEffect(() => {
-        getData(id);
-    }, [id]);
+        if (id) {
+            const getData = async ({ids}) => {
+                const res = await getOne(ids);
+                setData(res.data);
+            };
+            getData({ids:id});
+        }
+    }, [getOne, id]);
 
     const resetFileInput = (e) => {
         e.preventDefault();
@@ -27,11 +34,6 @@ const Edit = () => {
         detailRef.current.value = null;
         priceRef.current.value = null;
         setCheck(false);
-    };
-
-    const getData = async (id) => {
-        const res = await GetData.get(id);
-        setData(res.data);
     };
 
     const hendleSubmit = (e) => {
@@ -57,7 +59,7 @@ const Edit = () => {
         };
 
         setCheck(true);
-        const res = GetData.update(id, fromData, onUploadProgress);
+        const res = updateData(id, fromData, onUploadProgress);
         res.then((res) => {
             console.log("res", res);
         });
@@ -154,7 +156,7 @@ const Edit = () => {
                         />
                     ) : (
                         <Image
-                            src={import.meta.env.VITE_API_URL + "/uploads/" + data.file}
+                            src={import.meta.env.VITE_API_URL + "/uploads/" + data?.file}
                             alt={data.name}
                         />
                     )}

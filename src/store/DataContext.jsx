@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect, useMemo, useCallback } from "react";
+import { createContext, useState, useContext, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 
 export const UserContext = createContext(null);
@@ -32,13 +32,10 @@ export const DataProvider = ({ children }) => {
         setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
     }, []);
 
-    const themeValue = useMemo(
-        () => ({
-            toggleTheme,
-            theme,
-        }),
-        [toggleTheme, theme]
-    );
+    const themeValue = {
+        theme,
+        toggleTheme,
+    }
 
     const userCheck = useCallback(
         (data) => {
@@ -47,13 +44,11 @@ export const DataProvider = ({ children }) => {
         [setUser]
     );
 
-    const userValue = useMemo(
-        () => ({
-            userCheck,
-            user,
-        }),
-        [userCheck, user]
-    );
+    const userValue = {
+        user,
+        userCheck,
+    }
+   
 
     return (
         <UserContext.Provider value={userValue}>

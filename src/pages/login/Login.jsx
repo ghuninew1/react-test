@@ -3,20 +3,21 @@ import GetData from "../../component/GetData";
 import { useNavigate } from "react-router-dom";
 import { UseUser } from "../../store/DataContext";
 import { Link } from "react-router-dom";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 const Login = () => {
     const userRef = useRef();
     const passRef = useRef();
     const navigator = useNavigate();
     const { userCheck } = UseUser();
+    const {signinData} = GetData();
 
     const handleCreate = async (e) => {
         e.preventDefault();
 
         const userData = { username: userRef.current.value, password: passRef.current.value };
         try {
-            await GetData.signin(userData).then((res) => {
+            await signinData(userData).then((res) => {
                 localStorage.setItem("token", res.data.tokens[0].token);
                 localStorage.setItem("user", res.data.username);
                 userCheck(res.data);

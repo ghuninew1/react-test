@@ -14,9 +14,10 @@ import { Link } from "react-router-dom";
 const Crud = () => {
     const [datas, setDatas] = useState([]);
     const [message, setMessage] = useState("");
-    const { data } = GetData.getAllRe();
     const [isEdit, setIsEdit] = useState(null);
     const fileRef = useRef(null);
+    const {getAllDataRe,removeData} = GetData();
+    const { data } = getAllDataRe();
 
     useEffect(() => {
         if (IsData(data)) {
@@ -26,7 +27,7 @@ const Crud = () => {
 
     const handleDelete = async (id) => {
         if (IsConfirm("Delete")) {
-            const res = await GetData.remove(id);
+            const res = await removeData(id);
             if (res.status === 200) {
                 setDatas(datas.filter((item) => item._id !== id));
                 setMessage("Delete Success");
@@ -112,7 +113,7 @@ const Crud = () => {
                                               URL.createObjectURL(fileRef.current.files[0])
                                             : import.meta.env.VITE_API_URL +
                                               "/uploads/" +
-                                              item.file
+                                              item?.file
                                     }
                                     alt={item.name}
                                 />

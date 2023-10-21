@@ -1,9 +1,55 @@
 import { NavLink, Outlet } from "react-router-dom";
 import Navlink from "../../component/Navlinks.js";
-import CircularProgressBar from "../../component/CircularProgressBar.jsx";
+import { useRef, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import 'chartjs-adapter-luxon';
+import {
+    Chart as ChartJS,
+    LinearScale,
+    CategoryScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Legend,
+    Tooltip,
+} from "chart.js";
+import StreamingPlugin from 'chartjs-plugin-streaming';
+import { Chart } from "react-chartjs-2";
+import { triggerTooltip } from "./triggerTooltip.js";
+import { data, options } from "./dataChart.js";
+
+ChartJS.register(
+    LinearScale,
+    CategoryScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Legend,
+    Tooltip,
+    StreamingPlugin
+);
 const Api = () => {
     const { ApiLink } = Navlink();
+    const chartRef = useRef(null);
+    const [chartData, setChartData] = useState({
+        datasets: [],
+    });
+
+    useEffect(() => {
+        const chart = chartRef.current;
+
+        if (!chart) {
+            return;
+        }
+
+        setChartData(data);
+
+        // triggerTooltip(chart);
+        // if (chart) {
+        //     console.log('CanvasRenderingContext2D', chart.ctx);
+        //     console.log('HTMLCanvasElement', chart.canvas);        }
+    }, []);
+
     return (
         <Container>
             <ul className="nav nav-tabs my-4">
@@ -22,34 +68,7 @@ const Api = () => {
             <div>
                 <h2 className="text-center">Api</h2>
                 <Outlet />
-                <CircularProgressBar selectedValue={8} />
-
-                <CircularProgressBar
-                    selectedValue={25}
-                    maxValue={50}
-                    textColor="#f00"
-                    activeStrokeColor="#cc6600"
-                    withGradient
-                />
-
-                <CircularProgressBar
-                    selectedValue={75}
-                    maxValue={100}
-                    radius={100}
-                    activeStrokeColor="#0f4fff"
-                    withGradient
-                    strokeWidth={25}
-                />
-
-                <CircularProgressBar
-                    selectedValue={55}
-                    maxValue={90}
-                    radius={80}
-                    activeStrokeColor="#cc6633"
-                    withGradient
-                    anticlockwise
-                    strokeWidth={20}
-                />
+                <Chart ref={chartRef} type="line" data={chartData}  />
             </div>
         </Container>
     );

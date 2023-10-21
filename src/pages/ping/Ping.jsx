@@ -7,6 +7,7 @@ export default function Ping() {
     const [check, setCheck] = useState(false);
     const [visible, setVisible] = useState(false);
     const [isIp, setIsIp] = useState("1.0.0.1");
+    const { getIp, getPingRe } = GetData();
 
     const inputRef = useRef(null);
     const resetFileInput = () => {
@@ -38,7 +39,7 @@ export default function Ping() {
         }
     };
     // const ip = inputRef.current.value;
-    const {data} = GetData.findPingRe(isIp);
+    const {data} = getPingRe(isIp);
 
     const hendleSubmit = async (e) => {
         e.preventDefault();
@@ -49,7 +50,7 @@ export default function Ping() {
             setVisible(true);
 
         } else {
-            const res = await GetData.findIp(ip);
+            const res = await getIp(ip);
             setDatas(res.data);
             setVisible(true);
         }

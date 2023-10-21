@@ -14,18 +14,18 @@ import { Link } from "react-router-dom";
 const GetApi = () => {
     const [datas, setDatas] = useState([]);
     const [message, setMessage] = useState("");
-    const { data } = GetData.getAllRe();
+    const {getAllDataRe,removeData} = GetData();
+    const { data } = getAllDataRe();
 
     useEffect(() => {
         if (IsData(data)) {
             setDatas(IsData(data) ? data : []);
         }
-        
     }, [data]);
 
     const handleDelete = async (id) => {
         if (IsConfirm("Delete")) {
-            const res = await GetData.remove(id);
+            const res = await removeData(id);
             if (res.status === 200) {
                 setDatas(datas.filter((item) => item._id !== id));
                 setMessage("Delete Success");
@@ -46,7 +46,7 @@ const GetApi = () => {
                     {item.file && (
                     <td id="preview-img" className="text-center">
                         <Image
-                            src={import.meta.env.VITE_API_URL + "/uploads/" + (item.file ?  item.file : "no-image.png")}
+                            src={import.meta.env.VITE_API_URL + "/uploads/" + (item?.file &&  item.file)}
                             alt={item.name}
                         />
                     </td>

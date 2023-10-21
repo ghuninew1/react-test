@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useAxios } from "./useAxios.js";
 import UseSwr from "./UseSwr.js";
 
@@ -54,21 +55,38 @@ const users = async ({ token }) => await useAxios.post("/auth/users",{},{
 })    
 
 
-const GetData = {
-    getAll,
-    getAllRe,
-    get,
-    upload,
-    create,
-    update,
-    remove,
-    removeAll,
-    findIp,
-    findPing,
-    signin,
-    signup,
-    users,
-    findPingRe,
-};
+const GetData = () => {
+    const getAllData = useCallback(async () => await getAll(), []);
+    const getAllDataRe = useCallback(() => getAllRe(), []);
+    const getIp = useCallback(async (ip) => await findIp(ip), []);
+    const getPing = useCallback(async (ip) => await findPing(ip), []);
+    const getPingRe = useCallback((ip) => findPingRe(ip), []);
+    const getOne = useCallback(async (id) => await get(id), []);
+    const createData = useCallback(async (data, onUploadProgress) => await create(data, onUploadProgress), []);
+    const updateData = useCallback(async (id,data, onUploadProgress) => await update(id,data, onUploadProgress), []);
+    const removeData = useCallback(async (id) => await remove(id), []);
+    const removeAllData = useCallback(async () => await removeAll(), []);
+    const uploadData = useCallback(async (data, onUploadProgress) => await upload(data, onUploadProgress), []);
+    const signinData = useCallback(async (data) => await signin(data), []);
+    const signupData = useCallback(async (data) => await signup(data), []);
+    const curenUser = useCallback(async ({ token }) => await users({ token }), []);
+
+    return {
+        getAllData,
+        getAllDataRe,
+        getIp,
+        getPing,
+        getPingRe,
+        getOne,
+        createData,
+        updateData,
+        removeData,
+        removeAllData,
+        uploadData,
+        signinData,
+        signupData,
+        curenUser,
+    };
+}
 
 export default GetData;

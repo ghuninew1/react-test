@@ -11,6 +11,7 @@ const Register = () => {
     const passConfirmRef = useRef();
     const emailRef = useRef();
     const navigator = useNavigate();
+    const {signupData} = GetData();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,7 +21,7 @@ const Register = () => {
             password: passRef.current.value,
         };
         try {
-            await GetData.signup(body).then((res) => {
+            await signupData(body).then((res) => {
                 alert("Register Success " + res.data.username);
                 navigator("/signin");
             });
