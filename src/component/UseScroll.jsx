@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import ScrollListener from "./ScrollListener";
 import PropTypes from "prop-types";
-import { Container } from "react-bootstrap";
 
-const UseScroll = ({ children, sec=0.7, ty=-100 }) => {
+const UseScroll = ({ children, sec = 0.7, ty = -100 }) => {
     const scroll = ScrollListener();
     const [style, setStyle] = useState({});
 
@@ -31,12 +30,7 @@ const UseScroll = ({ children, sec=0.7, ty=-100 }) => {
         }
     }, [scroll.lastY, scroll.y, sec, ty]);
 
-    return ( <Container fluid
-        className = "fixed-top m-0 p-0"
-        style = { style }
-    >
-        {children}
-        </Container>)
+    return <div style={{ ...style }}>{children}</div>;
 };
 
 UseScroll.propTypes = {
